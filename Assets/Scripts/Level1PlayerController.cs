@@ -11,6 +11,10 @@ public class Level1PlayerController : MonoBehaviour
         get { return isBurning; }
         set
         {
+            if(isBurning && value)
+            {
+                Debug.Log("Kaputt");    
+            }
             isBurning = value;
             if(isBurning == true)
             {
@@ -42,10 +46,12 @@ public class Level1PlayerController : MonoBehaviour
     SpriteRenderer boost;
     Rigidbody2D rigid;
     bool jump = false;
+    bool destroyed = false;
     float jumpTime = 0f;
     float jumpTimeLimit = 0.5f;
     float boostTime = 1.0f;
     float boostTimeLimit = 1.0f;
+
 
 
     // Start is called before the first frame update

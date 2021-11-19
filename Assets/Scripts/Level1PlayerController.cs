@@ -13,7 +13,15 @@ public class Level1PlayerController : MonoBehaviour
         {
             isBurning = value;
             if(isBurning == true)
+            {
                 fire.enabled = true;
+                fireTime = fireTimeLimit;
+            }
+            else
+            {
+                fire.enabled = false;
+            }
+                
         }
     }
     SpriteRenderer fire;
@@ -21,10 +29,12 @@ public class Level1PlayerController : MonoBehaviour
     bool jump = false;
     float jumpTime = 0f;
     float jumpTimeLimit = 0.5f;
+    float fireTime = 2.5f;
+    float fireTimeLimit = 2.5f;
 
 
     // Start is called before the first frame update
-    void Start()
+    void Start() 
     {
         rigid = GetComponent<Rigidbody2D>();
         foreach (Transform ts in transform)
@@ -43,6 +53,7 @@ public class Level1PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
+            IsBurning = true;
         }
         if(jumpTime > 0)
         {
@@ -51,7 +62,16 @@ public class Level1PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+    {    
+        if(IsBurning)
+        {
+            fireTime -= Time.deltaTime;
+            if (fireTime < 0)
+            {
+                IsBurning = false;
+                Debug.Log("Burning vorbei");
+            }
+        }
         if(jumpTime <= 0)
         {
             rigid.velocity = new Vector2(1f, -0.6f);

@@ -15,22 +15,37 @@ public class Level1PlayerController : MonoBehaviour
             if(isBurning == true)
             {
                 fire.enabled = true;
-                fireTime = fireTimeLimit;
+            }                
+        }
+    }
+    [SerializeField]
+    private bool isBoosting = false;
+    public bool IsBoosting
+    {
+        get { return isBoosting; }
+        set
+        {
+            isBoosting = value;
+            if (isBoosting == true)
+            {
+                boost.enabled = true;
+                boostTime = boostTimeLimit;
             }
             else
             {
-                fire.enabled = false;
+                boost.enabled = false;
             }
-                
+
         }
     }
     SpriteRenderer fire;
+    SpriteRenderer boost;
     Rigidbody2D rigid;
     bool jump = false;
     float jumpTime = 0f;
     float jumpTimeLimit = 0.5f;
-    float fireTime = 2.5f;
-    float fireTimeLimit = 2.5f;
+    float boostTime = 1.0f;
+    float boostTimeLimit = 1.0f;
 
 
     // Start is called before the first frame update
@@ -41,9 +56,11 @@ public class Level1PlayerController : MonoBehaviour
         {
             if (ts.name == "Fire")
                 fire = ts.gameObject.GetComponent<SpriteRenderer>();
+            if (ts.name == "Boost")
+                boost = ts.gameObject.GetComponent<SpriteRenderer>();
         }
         fire.enabled = false;
-        
+        boost.enabled = false;
         //fire = GetComponentInChildren<>
     }
 
@@ -53,7 +70,7 @@ public class Level1PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
-            IsBurning = true;
+            IsBoosting = true;
         }
         if(jumpTime > 0)
         {
@@ -63,12 +80,12 @@ public class Level1PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {    
-        if(IsBurning)
+        if(IsBoosting)
         {
-            fireTime -= Time.deltaTime;
-            if (fireTime < 0)
+            boostTime -= Time.deltaTime;
+            if (boostTime < 0)
             {
-                IsBurning = false;
+                IsBoosting = false;
                 Debug.Log("Burning vorbei");
             }
         }

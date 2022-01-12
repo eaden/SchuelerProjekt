@@ -11,6 +11,7 @@ public class Level1PlayerController : MonoBehaviour
         get { return isBurning; }
         set
         {
+            // hier soll dann entweder eine kaputte oder eine brennende Stelle am Schiff dargestellt werden
             if(isBurning && value)
             {
                 Debug.Log("Kaputt");    
@@ -34,9 +35,6 @@ public class Level1PlayerController : MonoBehaviour
     float horizontalSpeed = 2f;
     float verticalSpeed = 2f;
 
-
-
-    // Start is called before the first frame update
     void Start() 
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -46,7 +44,6 @@ public class Level1PlayerController : MonoBehaviour
                 fire = ts.gameObject.GetComponent<SpriteRenderer>();
         }
         fire.enabled = false;
-        //fire = GetComponentInChildren<>
     }
 
     void Update()
@@ -71,14 +68,16 @@ public class Level1PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigid.velocity = new Vector2(0f, 0f);
-        if (goingLeft && !goingRight)
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        rigid.velocity = new Vector2(0f, 0.5f);
+        if (goingLeft && !goingRight && (pos.x > 0.02f))
             rigid.velocity = new Vector2(-horizontalSpeed, rigid.velocity.y);
-        if (!goingLeft && goingRight)
+        if (!goingLeft && goingRight && (pos.x < 0.98f))
             rigid.velocity = new Vector2(horizontalSpeed, rigid.velocity.y);
-        if (goingDown && !goingUp)
+        if (goingDown && !goingUp && (pos.y > 0.05f))
             rigid.velocity = new Vector2(rigid.velocity.x, -verticalSpeed + 0.5f);
-        if (!goingDown && goingUp)
+        if (!goingDown && goingUp && (pos.y < 0.95f))
             rigid.velocity = new Vector2(rigid.velocity.x, verticalSpeed + 0.5f);
     }
+    
 }

@@ -52,6 +52,14 @@ public class Level1PlayerController : MonoBehaviour
     float boostTime = 1.0f;
     float boostTimeLimit = 1.0f;
 
+    bool goingLeft = false;
+    bool goingRight = false;
+    bool goingDown = false;
+    bool goingUp = false;
+
+    float horizontalSpeed = 2f;
+    float verticalSpeed = 2f;
+
 
 
     // Start is called before the first frame update
@@ -73,6 +81,7 @@ public class Level1PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /* // wird nicht verwendet -> kein Flappy Bird
         if(Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
@@ -82,10 +91,38 @@ public class Level1PlayerController : MonoBehaviour
         {
             jumpTime -= Time.deltaTime;
         }
+        */
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+            goingLeft = true;
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
+            goingLeft = false;
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            goingRight = true;
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+            goingRight = false;
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            goingDown = true;
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+            goingDown = false;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            goingUp = true;
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+            goingUp = false;
     }
 
     private void FixedUpdate()
-    {    
+    {
+        rigid.velocity = new Vector2(0f, 0f);
+        if (goingLeft && !goingRight)
+            rigid.velocity = new Vector2(-horizontalSpeed, rigid.velocity.y);
+        if (!goingLeft && goingRight)
+            rigid.velocity = new Vector2(horizontalSpeed, rigid.velocity.y);
+        if (goingDown && !goingUp)
+            rigid.velocity = new Vector2(rigid.velocity.x, -verticalSpeed + 0.5f);
+        if (!goingDown && goingUp)
+            rigid.velocity = new Vector2(rigid.velocity.x, verticalSpeed + 0.5f);
+
+        /* // wird nicht verwendet -> kein Flappy Bird
         if(IsBoosting)
         {
             boostTime -= Time.deltaTime;
@@ -106,5 +143,6 @@ public class Level1PlayerController : MonoBehaviour
             rigid.AddForce(new Vector2(0.0f, 4.8f), ForceMode2D.Impulse);
             jump = false;
         }
+        */
     }
 }

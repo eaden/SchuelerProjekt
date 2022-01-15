@@ -32,8 +32,8 @@ public class Level1PlayerController : MonoBehaviour
     bool goingDown = false;
     bool goingUp = false;
 
-    float horizontalSpeed = 2f;
-    float verticalSpeed = 2f;
+    float horizontalSpeed = 4f;
+    float verticalSpeed = 4f;
 
     void Start() 
     {
@@ -69,15 +69,15 @@ public class Level1PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        rigid.velocity = new Vector2(0f, 0.5f);
+        rigid.velocity = new Vector2(0f, Level1CameraMovement.camMovementSpeed);
         if (goingLeft && !goingRight && (pos.x > 0.02f))
             rigid.velocity = new Vector2(-horizontalSpeed, rigid.velocity.y);
         if (!goingLeft && goingRight && (pos.x < 0.98f))
             rigid.velocity = new Vector2(horizontalSpeed, rigid.velocity.y);
         if (goingDown && !goingUp && (pos.y > 0.05f))
-            rigid.velocity = new Vector2(rigid.velocity.x, -verticalSpeed + 0.5f);
+            rigid.velocity = new Vector2(rigid.velocity.x, -verticalSpeed + Level1CameraMovement.camMovementSpeed);
         if (!goingDown && goingUp && (pos.y < 0.95f))
-            rigid.velocity = new Vector2(rigid.velocity.x, verticalSpeed + 0.5f);
+            rigid.velocity = new Vector2(rigid.velocity.x, verticalSpeed + Level1CameraMovement.camMovementSpeed);
     }
     
 }

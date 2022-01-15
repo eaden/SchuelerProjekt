@@ -5,6 +5,7 @@ using UnityEngine;
 public class Level1CameraMovement : MonoBehaviour
 {
     Rigidbody2D rigid;
+    public static float camMovementSpeed = 3f;
 
     void Start()
     {
@@ -13,6 +14,6 @@ public class Level1CameraMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigid.velocity = new Vector2(0f, 0.5f);
+        rigid.velocity = new Vector2(0f, camMovementSpeed);
     }
 }

@@ -6,14 +6,21 @@ public class Level1CameraMovement : MonoBehaviour
 {
     Rigidbody2D rigid;
     public static float camMovementSpeed = 3f;
+	[SerializeField]
+	public bool Stop {get; set;}
 
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+		Stop = false;
     }
 
     void FixedUpdate()
     {
-        rigid.velocity = new Vector2(0f, camMovementSpeed);
+		if (Stop) {
+			rigid.velocity = Vector2.zero;
+		} else {
+			rigid.velocity = new Vector2(0f, camMovementSpeed);
+		}
     }
 }

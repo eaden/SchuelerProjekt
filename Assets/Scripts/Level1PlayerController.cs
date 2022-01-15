@@ -1,20 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level1PlayerController : MonoBehaviour
 {
     [SerializeField]
     private bool isBurning = false;
+	[SerializeField]
+	private int deathCamTime = 4;
     public bool IsBurning
     {
         get { return isBurning; }
         set
         {
             // hier soll dann entweder eine kaputte oder eine brennende Stelle am Schiff dargestellt werden
-            if(isBurning && value)
+            if(destroyed == null && isBurning && value)
             {
                 Debug.Log("Kaputt");    
+				cameraMovement.Stop = true;
+				destroyed = System.DateTime.Now;
             }
             isBurning = value;
             if(isBurning == true)
@@ -25,7 +30,7 @@ public class Level1PlayerController : MonoBehaviour
     }
     SpriteRenderer fire;
     Rigidbody2D rigid;
-    bool destroyed = false;
+    System.DateTime? destroyed = null;
 
     bool goingLeft = false;
     bool goingRight = false;
@@ -35,8 +40,21 @@ public class Level1PlayerController : MonoBehaviour
     float horizontalSpeed = 4f;
     float verticalSpeed = 4f;
 
+	struct DirectedPosition {
+		public DirectedPosition(Vector2 point, Vector2 normal)
+		{
+			Point = point;
+			Normal = normal;
+		}
+		public Vector2 Point {get;}
+		public Vector2 Normal {get;}
+	};
+	DirectedPosition? landing = null;
+	Level1CameraMovement cameraMovement;
+
     void Start() 
     {
+		cameraMovement = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Level1CameraMovement>();
         rigid = GetComponent<Rigidbody2D>();
         foreach (Transform ts in transform)
         {
@@ -45,6 +63,16 @@ public class Level1PlayerController : MonoBehaviour
         }
         fire.enabled = false;
     }
+
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		Debug.Log("Collision Enter");
+		if (col.gameObject.tag == "Finish") {
+			cameraMovement.Stop = true;
+			var contact = col.GetContact(0);
+			landing = new DirectedPosition(contact.point, contact.normal);
+		}
+	}
 
     void Update()
     {
@@ -68,6 +96,19 @@ public class Level1PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+		if(destroyed != null) {
+			if ((System.DateTime.Now - destroyed)?.TotalSeconds > deathCamTime) {
+				SceneManager.LoadScene("IntroScene");
+			}
+			return;
+		}
+		if (landing != null) {
+			var landingPoint = landing ?? new DirectedPosition(Vector2.zero, Vector2.zero);
+			rigid.velocity = Vector2.zero;
+			transform.position = landingPoint.Point;
+			transform.rotation = Quaternion.FromToRotation(transform.up, landingPoint.Normal) * transform.rotation;
+			return;
+		}
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         rigid.velocity = new Vector2(0f, Level1CameraMovement.camMovementSpeed);
         if (goingLeft && !goingRight && (pos.x > 0.02f))

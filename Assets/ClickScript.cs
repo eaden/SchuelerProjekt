@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ClickScript : MonoBehaviour
 {
+    ClickSceneManager csm;
     // Start is called before the first frame update
     void Start()
     {
-        
+        csm = ClickSceneManager.Instance;
     }
 
     // Update is called once per frame
@@ -20,9 +21,15 @@ public class ClickScript : MonoBehaviour
     {
         if(gameObject.tag == "SearchedItem")
         {
+            Debug.Log("Yeah");
+            csm.NextClickObject();
             // richtiges Item angeklickt
-            ClickSceneManager.Instance.NextClickObject();
+            //ClickSceneManager.Instance.NextClickObject();
             //Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.Log("Möp");
         }
     }
 }

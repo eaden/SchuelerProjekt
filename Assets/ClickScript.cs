@@ -18,7 +18,11 @@ public class ClickScript : MonoBehaviour
 
     void OnMouseDown()
     {
-        // this object was clicked - do something
-        Destroy(this.gameObject);
+        if(gameObject.tag == "SearchedItem")
+        {
+            // richtiges Item angeklickt
+            ClickSceneManager.Instance.NextClickObject();
+            //Destroy(this.gameObject);
+        }
     }
 }

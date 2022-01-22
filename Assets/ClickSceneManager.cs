@@ -18,6 +18,7 @@ public class ClickSceneManager : MonoBehaviour
     int aktuelleSzeneIndex = 1;
     List<GameObject> moeglicheZiele = new List<GameObject>();
     int ausgewaehltesZiel;
+    GameObject anzeigeFenster;
 
     public void NextClickObject()
     {
@@ -40,6 +41,17 @@ public class ClickSceneManager : MonoBehaviour
         // alte Szene inaktiv setzen
         aktuelleSzene.SetActive(false);
         moeglicheZiele.Clear();
+        // Anzeigefenster aendern
+        //Debug.Log(anzeigeFenster.transform.childCount);
+        //Debug.Log(aktuelleSzeneIndex);
+        for (int i = 0; i < anzeigeFenster.transform.childCount; i++)
+        {
+            if ((aktuelleSzeneIndex - 1) == i)
+                anzeigeFenster.transform.GetChild(i).gameObject.SetActive(true);
+            else
+                anzeigeFenster.transform.GetChild(i).gameObject.SetActive(false);
+            
+        }
         aktuelleSzene = szene;
         szene.SetActive(true);
         GameObject suchObjekte = null;
@@ -69,6 +81,7 @@ public class ClickSceneManager : MonoBehaviour
 
         //Methode, um die richtigen Objekte für die nächste Versteckszene zu laden
         //Methode um neues Objekt random zu setzen
+        anzeigeFenster = GameObject.Find("anzeigeFenster");
         szene1 = GameObject.Find("SuchSzene1");
         szene2 = GameObject.Find("SuchSzene2");
         szene3 = GameObject.Find("SuchSzene3");

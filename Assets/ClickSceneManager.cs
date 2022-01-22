@@ -19,6 +19,7 @@ public class ClickSceneManager : MonoBehaviour
     List<GameObject> moeglicheZiele = new List<GameObject>();
     int ausgewaehltesZiel;
     GameObject anzeigeFenster;
+    zahlenZaehler zaehlerScript;
 
     public void NextClickObject()
     {
@@ -27,11 +28,14 @@ public class ClickSceneManager : MonoBehaviour
         {
             case 2:
                 SzeneAktivSetzen(szene2);
+                zaehlerScript.Reset();
                 break;
             case 3:
                 SzeneAktivSetzen(szene3);
+                zaehlerScript.Reset();
                 break;
             default:
+                zaehlerScript.Geschafft();
                 Debug.Log("Geschafft");
                 break;
         }
@@ -82,6 +86,7 @@ public class ClickSceneManager : MonoBehaviour
         //Methode, um die richtigen Objekte für die nächste Versteckszene zu laden
         //Methode um neues Objekt random zu setzen
         anzeigeFenster = GameObject.Find("anzeigeFenster");
+        zaehlerScript = GameObject.Find("zaehlerObjekt").GetComponent<zahlenZaehler>();
         szene1 = GameObject.Find("SuchSzene1");
         szene2 = GameObject.Find("SuchSzene2");
         szene3 = GameObject.Find("SuchSzene3");

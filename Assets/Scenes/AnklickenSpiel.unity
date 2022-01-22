@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 90512777}
   - component: {fileID: 90512779}
   m_Layer: 0
-  m_Name: zaehler
+  m_Name: zaehlerObjekt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

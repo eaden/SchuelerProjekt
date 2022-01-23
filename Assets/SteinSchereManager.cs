@@ -14,6 +14,7 @@ public class SteinSchereManager : MonoBehaviour
     string gewaehltesObjekt = "";
 
     // Variables
+    GameObject derComputer;
     GameObject computerAlien;
     GameObject computerSonne;
     GameObject computerPlanet;
@@ -25,6 +26,11 @@ public class SteinSchereManager : MonoBehaviour
     BoxCollider2D clickAlien;
     CircleCollider2D clickSonne;
     CircleCollider2D clickPlanet;
+
+    bool shuffle = false;
+    int shuffleCounter = 0;
+    float shuffleTimer = 0.7f;
+    float shuffleTimerLimit = 0.7f;
 
     int computerAuswahl = 0;
     bool computerSneakpeak = false;
@@ -54,6 +60,21 @@ public class SteinSchereManager : MonoBehaviour
         gewaehltesObjekt = name;
     }
 
+    void ComputerShuffle()
+    {
+        int childs = derComputer.transform.childCount;
+        derComputer.transform.GetChild((shuffleCounter+2) % childs).gameObject.SetActive(false);
+        derComputer.transform.GetChild((shuffleCounter) % childs).gameObject.SetActive(true);
+        //derComputer.transform.GetChild((shuffleCounter + (childs - 1)) % childs).gameObject.SetActive(false);
+        //derComputer.transform.GetChild(shuffleCounter % childs).gameObject.SetActive(true);
+        shuffleCounter++;
+        if (shuffleCounter > 5)
+        {
+            shuffle = false;
+            shuffleCounter = 0;
+        }
+    }
+
     void ComputerWaehlt()
     {
         computerAuswahl = Random.Range(0, 3);
@@ -68,7 +89,7 @@ public class SteinSchereManager : MonoBehaviour
             }
             else
             {
-                computerSpriteMask.transform.GetChild(computerAuswahl+ showRightOne % 3).gameObject.SetActive(true);
+                computerSpriteMask.transform.GetChild((computerAuswahl+ showRightOne) % 3).gameObject.SetActive(true);
                 computerAugen.SetActive(true);
             }
                 
@@ -94,6 +115,7 @@ public class SteinSchereManager : MonoBehaviour
 
     void Start()
     {
+        derComputer = GameObject.Find("DerComputer");
         computerAlien = GameObject.Find("ComputerAlien");
         computerSonne = GameObject.Find("ComputerSonne"); ;
         computerPlanet = GameObject.Find("ComputerPlanet"); ;
@@ -132,8 +154,18 @@ public class SteinSchereManager : MonoBehaviour
                 SetzeClickableAktiv();
             if(objektWurdeGewaehlt)
             {
+                objektWurdeGewaehlt = false;
                 SetzeClickableInaktiv();
-                // Szene animieren
+                shuffle = true;
+            }
+            if(shuffle)
+            {
+                shuffleTimer -= Time.deltaTime;
+                if(shuffleTimer < 0)
+                {
+                    ComputerShuffle();
+                    shuffleTimer = shuffleTimerLimit;
+                }
             }
         }
     }

@@ -21,6 +21,7 @@ public class SteinSchereManager : MonoBehaviour
     GameObject computerMiniSonne;
     GameObject computerMiniPlanet;
     GameObject computerSpriteMask;
+    GameObject computerAugen;
     BoxCollider2D clickAlien;
     CircleCollider2D clickSonne;
     CircleCollider2D clickPlanet;
@@ -58,8 +59,20 @@ public class SteinSchereManager : MonoBehaviour
         computerAuswahl = Random.Range(0, 3);
         if (Random.Range(1, 6) > 1)
         {
-            computerSpriteMask.transform.GetChild(computerAuswahl).gameObject.SetActive(true);
             computerSneakpeak = true;
+            // Change den richtigen anzuzeigen
+            int showRightOne = Random.Range(1, 11);
+            if(showRightOne > 2)
+            {
+                computerSpriteMask.transform.GetChild(computerAuswahl).gameObject.SetActive(true);
+            }
+            else
+            {
+                computerSpriteMask.transform.GetChild(computerAuswahl+ showRightOne % 3).gameObject.SetActive(true);
+                computerAugen.SetActive(true);
+            }
+                
+            
         }
         switch (computerAuswahl)
         {
@@ -96,7 +109,9 @@ public class SteinSchereManager : MonoBehaviour
         clickAlien = GameObject.Find("ClickAlien").GetComponent<BoxCollider2D>();
         clickSonne = GameObject.Find("ClickSonne").GetComponent<CircleCollider2D>();
         clickPlanet = GameObject.Find("ClickPlanet").GetComponent<CircleCollider2D>();
-        computerSpriteMask = GameObject.Find("ComputerSpriteMask"); 
+        computerSpriteMask = GameObject.Find("ComputerSpriteMask");
+        computerAugen = GameObject.Find("ComputerAugen");
+        computerAugen.SetActive(false);
 
         // Computerauswahl
         ComputerWaehlt();

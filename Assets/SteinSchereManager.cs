@@ -10,6 +10,8 @@ public class SteinSchereManager : MonoBehaviour
         Instance = this;
     }
     public bool objektWurdeGewaehlt = false;
+    public bool warteTimerLaeuft = true;
+    string gewaehltesObjekt = "";
 
     // Variables
     GameObject computerAlien;
@@ -18,13 +20,61 @@ public class SteinSchereManager : MonoBehaviour
     GameObject computerMiniAlien;
     GameObject computerMiniSonne;
     GameObject computerMiniPlanet;
+    BoxCollider2D clickAlien;
+    CircleCollider2D clickSonne;
+    CircleCollider2D clickPlanet;
 
+    int computerAuswahl = 0;
+    bool computerSneakpeak = false;
+
+    bool clickablesAktiv = false;
     float warteTimer = 5f;
+
+    void SetzeClickableAktiv()
+    {
+        clickAlien.enabled = true;
+        clickSonne.enabled = true;
+        clickPlanet.enabled = true;
+        clickablesAktiv = true;
+    }
+
+    void SetzeClickableInaktiv()
+    {
+        clickAlien.enabled = false;
+        clickSonne.enabled = false;
+        clickPlanet.enabled = false;
+        clickablesAktiv = false;
+    }
 
     public void ObjektWahl(string name)
     {
         objektWurdeGewaehlt = true;
+        gewaehltesObjekt = name;
     }
+
+    void ComputerWaehlt()
+    {
+        if (Random.Range(1, 6) > 1)
+            computerSneakpeak = true;
+        computerAuswahl = Random.Range(0, 3);
+        switch (computerAuswahl)
+        {
+            case 0:
+                // Alien
+                break;
+            case 1:
+                // Sonne
+                break;
+            case 2:
+                // Planet
+                break;
+            default:
+                Debug.Log("Hier ist was falsch gegangen");
+                break;
+        }
+
+    }
+
     void Start()
     {
         computerAlien = GameObject.Find("ComputerAlien");
@@ -39,6 +89,13 @@ public class SteinSchereManager : MonoBehaviour
         computerMiniAlien.SetActive(false);
         computerMiniSonne.SetActive(false);
         computerMiniPlanet.SetActive(false);
+        clickAlien = GameObject.Find("ClickAlien").GetComponent<BoxCollider2D>();
+        clickSonne = GameObject.Find("ClickSonne").GetComponent<CircleCollider2D>();
+        clickPlanet = GameObject.Find("ClickPlanet").GetComponent<CircleCollider2D>();
+
+        // Computerauswahl
+        ComputerWaehlt();
+        
     }
 
     // Update is called once per frame
@@ -51,9 +108,12 @@ public class SteinSchereManager : MonoBehaviour
         }
         else
         {
+            if (!clickablesAktiv)
+                SetzeClickableAktiv();
             if(objektWurdeGewaehlt)
             {
-
+                SetzeClickableInaktiv();
+                // Szene animieren
             }
         }
     }

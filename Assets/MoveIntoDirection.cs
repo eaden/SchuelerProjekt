@@ -45,7 +45,7 @@ public class MoveIntoDirection : MonoBehaviour
             {
                 v = startposition - firstOne.transform.position;
                 vnorm = v.normalized;
-                firstOne.transform.Translate(vnorm * Time.deltaTime * 6);
+                firstOne.transform.Translate(vnorm * Time.deltaTime * 6, Space.World);
                 if (v.magnitude < 0.2f)
                 {
                     rueckzug = false;
@@ -65,7 +65,7 @@ public class MoveIntoDirection : MonoBehaviour
             }
             if (kurzzurueck)
             {
-                firstOne.transform.Translate(-unorm * Time.deltaTime * 7);
+                firstOne.transform.Translate(-unorm * Time.deltaTime * 7, Space.World);
                 kurzzurueckTimer -= Time.deltaTime;
                 if (kurzzurueckTimer < 0)
                 {
@@ -76,7 +76,7 @@ public class MoveIntoDirection : MonoBehaviour
             }
             if (ansturm)
             {
-                firstOne.transform.Translate(unorm * Time.deltaTime * 12);
+                firstOne.transform.Translate(unorm * Time.deltaTime * 12, Space.World);
                 if (u.magnitude < 0.5f)
                 {
                     ansturm = false;

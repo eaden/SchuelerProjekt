@@ -17,11 +17,35 @@ public class ButtonEvents : MonoBehaviour
         
     }
 
-    public void Weitermachen_ChangeToLastScene()
+    public void Weitermachen_Changelevel()
     {
-        SceneManager.LoadScene("Level1");
-    }
+        if(GameManager.Instance!=null)
+        {
+            int i = GameManager.Instance.levelFortschritt;
+            switch (i)
+            {
+                case 1:
+                    SceneManager.LoadScene("SteinSchereScene");
+                    break;
+                case 2:
+                    SceneManager.LoadScene("Level1");
+                    break;
+                case 3:
+                    SceneManager.LoadScene("AnklickenSpiel");
+                    break;
+                default:
+                    Debug.Log("Hier war was falsch");
+                    break;
+            }
+            
+        }
 
+    }
+    public void Teilnehmende_Changelevel()
+    {
+        SceneManager.LoadScene("Teilnehmende");
+    }
+    
     public void ChangeSceneToFirstLevel()
     {
         SceneManager.LoadScene("Level1");

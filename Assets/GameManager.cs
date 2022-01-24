@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+        // Audiotest
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             AudioManager.Instance.Play("oui");
@@ -42,5 +44,14 @@ public class GameManager : MonoBehaviour
         {
             AudioManager.Instance.Play2("gesang1");
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AudioManager.Instance.Stop1();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            AudioManager.Instance.Stop2();
+        }
+        */
     }
 }

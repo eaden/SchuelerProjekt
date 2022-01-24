@@ -20,7 +20,7 @@ public class Level1WallBehaviour : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Level1PlayerController>().IsBurning = true;
+            collision.gameObject.GetComponent<Level1PlayerController>().PlayerHitSomething();
         }
     }
 }

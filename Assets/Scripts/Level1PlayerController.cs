@@ -9,6 +9,23 @@ public class Level1PlayerController : MonoBehaviour
     private bool isBurning = false;
 	[SerializeField]
 	private int deathCamTime = 4;
+    private int damage = 0;
+    private bool invulnerable = false;
+    float invulnerableTimer = 2.5f;
+    float invulnerableTimerLimit = 2.5f;
+    public void PlayerHitSomething()
+    {
+
+        Debug.Log("Schaden erhalten");
+        IsBurning = true;
+        damage++;
+        invulnerable = true;
+        if(damage > 1)
+        {
+            // Destruction
+        }
+    }
+    
     public bool IsBurning
     {
         get { return isBurning; }
@@ -24,11 +41,12 @@ public class Level1PlayerController : MonoBehaviour
             isBurning = value;
             if(isBurning == true)
             {
-                fire.enabled = true;
+                //fire.enabled = true;
             }                
         }
     }
-    SpriteRenderer fire;
+    
+    //SpriteRenderer fire;
     Rigidbody2D rigid;
     System.DateTime? destroyed = null;
 
@@ -56,12 +74,14 @@ public class Level1PlayerController : MonoBehaviour
     {
 		cameraMovement = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Level1CameraMovement>();
         rigid = GetComponent<Rigidbody2D>();
+        /*
         foreach (Transform ts in transform)
         {
             if (ts.name == "Fire")
                 fire = ts.gameObject.GetComponent<SpriteRenderer>();
         }
         fire.enabled = false;
+        */
     }
 
 	void OnCollisionEnter2D(Collision2D col)
@@ -72,10 +92,23 @@ public class Level1PlayerController : MonoBehaviour
 			var contact = col.GetContact(0);
 			landing = new DirectedPosition(contact.point, contact.normal);
 		}
+        if(col.gameObject.tag == "Enemy" && !invulnerable)
+        {
+            PlayerHitSomething();
+        }
 	}
 
     void Update()
     {
+        if(invulnerable)
+        {
+            invulnerableTimer -= Time.deltaTime;
+            if(invulnerableTimer < 0)
+            {
+                invulnerable = false;
+                invulnerableTimer = invulnerableTimerLimit;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
             goingLeft = true;
         if (Input.GetKeyUp(KeyCode.LeftArrow))

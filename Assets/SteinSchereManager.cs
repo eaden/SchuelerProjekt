@@ -11,6 +11,7 @@ public class SteinSchereManager : MonoBehaviour
     }
     public bool objektWurdeGewaehlt = false;
     public bool warteTimerLaeuft = true;
+    public bool moveAnimationFertig = false;
     int gewaehltesObjektPlayer = 0;
 
     // Variables
@@ -28,6 +29,8 @@ public class SteinSchereManager : MonoBehaviour
     BoxCollider2D clickAlien;
     CircleCollider2D clickSonne;
     CircleCollider2D clickPlanet;
+    zahlenZaehlerSteinSchere zaehlerSpieler; 
+    zahlenZaehlerSteinSchere zaehlerComputer;
 
     bool shuffle = false;
     bool shuffleAbgeschlossen = false;
@@ -39,6 +42,8 @@ public class SteinSchereManager : MonoBehaviour
     GameObject computerAuswahlObjekt;
     GameObject playerAuswahlObjekt;
     bool computerSneakpeak = false;
+    int aktuellerGewinner = 0;
+    
 
     bool clickablesAktiv = false;
     float warteTimer = 5f;
@@ -100,18 +105,23 @@ public class SteinSchereManager : MonoBehaviour
         if (shuffleCounter < 6)
         {
             derComputer.transform.GetChild((shuffleCounter + 2) % childs).gameObject.SetActive(false);
-            derComputer.transform.GetChild((shuffleCounter) % childs).gameObject.SetActive(true);
+            derComputer.transform.GetChild(shuffleCounter % childs).gameObject.SetActive(true);
         }
         else
         {
-            derComputer.transform.GetChild((shuffleCounter + 2) % childs).gameObject.SetActive(false);
-            derComputer.transform.GetChild(computerAuswahl % childs).gameObject.SetActive(true);
+            if (shuffleCounter == 6)
+                derComputer.transform.GetChild((shuffleCounter + 2) % childs).gameObject.SetActive(false);
+            //derComputer.transform.GetChild(computerAuswahl % childs).gameObject.SetActive(true);
+            else
+                if(shuffleCounter == 7)
+                    computerAuswahlObjekt.SetActive(true);
+            // auf 8 ist nichts, da ist einfach wait
         }
-            
+
         //derComputer.transform.GetChild((shuffleCounter + (childs - 1)) % childs).gameObject.SetActive(false);
         //derComputer.transform.GetChild(shuffleCounter % childs).gameObject.SetActive(true);
         shuffleCounter++;
-        if (shuffleCounter > 6)
+        if (shuffleCounter > 8)
         {
             shuffle = false;
             shuffleCounter = 0;
@@ -128,10 +138,14 @@ public class SteinSchereManager : MonoBehaviour
         computerAugen.SetActive(false);
     }
 
+    void ComputerAuswahlAus()
+    {
+        computerAuswahlObjekt.SetActive(false);
+    }
+
     void ComputerWaehlt()
     {
-        //computerAuswahl = Random.Range(0, 3);
-        computerAuswahl = 0;
+        computerAuswahl = Random.Range(0, 3);
         if (Random.Range(1, 6) > 1)
         {
             computerSneakpeak = true;
@@ -208,6 +222,9 @@ public class SteinSchereManager : MonoBehaviour
         clickPlanet = GameObject.Find("ClickPlanet").GetComponent<CircleCollider2D>();
         rscript = clickAlien.transform.parent.GetComponent<RotateScript>();
         mscript = GetComponent<MoveIntoDirection>();
+ 
+        zaehlerSpieler = GameObject.Find("SpielerZaehler").GetComponent<zahlenZaehlerSteinSchere>();
+        zaehlerComputer = GameObject.Find("GegnerZaehler").GetComponent<zahlenZaehlerSteinSchere>();
 
         computerSpriteMask = GameObject.Find("ComputerSpriteMask");
         computerAugen = GameObject.Find("ComputerAugen");
@@ -255,16 +272,38 @@ public class SteinSchereManager : MonoBehaviour
             if (shuffleAbgeschlossen)
             {
                 shuffleAbgeschlossen = false;
-                int wer = SchauWerGewinnt();
+                aktuellerGewinner = SchauWerGewinnt();
 
-                if (wer < 0)
+                if (aktuellerGewinner < 0)
                 {
                     mscript.LetsMove(computerAuswahlObjekt, playerAuswahlObjekt);
                 }
-                else if (wer > 0)
+                else if (aktuellerGewinner > 0)
                 {
                     mscript.LetsMove(playerAuswahlObjekt, computerAuswahlObjekt);
                 }
+                else
+                {
+                    // Draw
+                    moveAnimationFertig = true;
+                }
+            }
+            if(moveAnimationFertig)
+            {
+                moveAnimationFertig = false;
+                if (aktuellerGewinner < 0)
+                {
+                    zaehlerComputer.PunktGemacht();
+                }
+                else if (aktuellerGewinner > 0)
+                {
+                    zaehlerSpieler.PunktGemacht();
+                }
+                RotateSwitch();
+                ComputerAuswahlAus();
+                auswahlPhase = true;
+                ComputerWaehlt();
+
             }
         }
 

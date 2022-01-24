@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MoveIntoDirection : MonoBehaviour
 {
+    SteinSchereManager ssm;
     bool started = false;
     GameObject firstOne;
     GameObject otherOne;
@@ -12,18 +13,18 @@ public class MoveIntoDirection : MonoBehaviour
     Vector3 unorm;
     Vector3 v;
     Vector3 vnorm;
-    bool ansturm = true;
+    bool ansturm = false;
     bool kurzzurueck = false;
     float kurzzurueckTimer = 0.15f;
     float kurzzurueckTimerLimit = 0.15f;
     bool stoppen = false;
     bool rueckzug = false;
-    float stoppenTimer = 0.3f;
-    float stoppenTimerLimit = 0.3f;
+    float stoppenTimer = 0.15f;
+    float stoppenTimerLimit = 0.15f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        ssm = SteinSchereManager.Instance;
     }
 
     public void LetsMove(GameObject first, GameObject second)
@@ -32,6 +33,7 @@ public class MoveIntoDirection : MonoBehaviour
         startposition = firstOne.transform.position;
         otherOne = second;
         started = true;
+        ansturm = true;
     }
 
     // Update is called once per frame
@@ -45,14 +47,16 @@ public class MoveIntoDirection : MonoBehaviour
             {
                 v = startposition - firstOne.transform.position;
                 vnorm = v.normalized;
-                firstOne.transform.Translate(vnorm * Time.deltaTime * 6, Space.World);
+                firstOne.transform.Translate(vnorm * Time.deltaTime * 10, Space.World);
                 if (v.magnitude < 0.2f)
                 {
                     rueckzug = false;
                     firstOne.transform.position = startposition;
                     started = false;
+                    ssm.moveAnimationFertig = true;
                 }
             }
+            /*
             if (stoppen)
             {
                 stoppenTimer -= Time.deltaTime;
@@ -63,9 +67,11 @@ public class MoveIntoDirection : MonoBehaviour
                     rueckzug = true;
                 }
             }
+            */
+            /*
             if (kurzzurueck)
             {
-                firstOne.transform.Translate(-unorm * Time.deltaTime * 7, Space.World);
+                firstOne.transform.Translate(-unorm * Time.deltaTime * 9, Space.World);
                 kurzzurueckTimer -= Time.deltaTime;
                 if (kurzzurueckTimer < 0)
                 {
@@ -74,13 +80,15 @@ public class MoveIntoDirection : MonoBehaviour
                     stoppen = true;
                 }
             }
+            */
             if (ansturm)
             {
-                firstOne.transform.Translate(unorm * Time.deltaTime * 12, Space.World);
+                firstOne.transform.Translate(unorm * Time.deltaTime * 25, Space.World);
                 if (u.magnitude < 0.5f)
                 {
                     ansturm = false;
-                    kurzzurueck = true;
+                    //kurzzurueck = true;
+                    rueckzug = true;
                 }
 
             }

@@ -24,7 +24,15 @@ public class zahlenZaehlerSteinSchere : MonoBehaviour
         einerZaehlerRenderer.sprite = spriteSammlung[aktuelleZahl];
         if (aktuelleZahl > 5 && gameObject.CompareTag("Player"))
         {
-            // Gewonnen
+            if(gameObject.CompareTag("Player"))
+            {
+                // Gewonnen
+            }
+            else
+            {
+                // Verloren
+            }
+
         }
     }
 

@@ -8,15 +8,30 @@ public class Level1PlayerController : MonoBehaviour
     [SerializeField]
     private bool isBurning = false;
 	[SerializeField]
-	private int deathCamTime = 4;
+	private int deathCamTime = 6;
     private int damage = 0;
     private bool invulnerable = false;
     float invulnerableTimer = 2.5f;
     float invulnerableTimerLimit = 2.5f;
+    int explosionCounter = 0;
+    float explosionTimer = 0.3f;
+    float explosionTimerLimit = 0.3f;
+
+    List<SpriteRenderer> schiffRenderer = new List<SpriteRenderer>();
+    List<SpriteRenderer> explosionsRenderer = new List<SpriteRenderer>();
+
+    SpriteRenderer sr;
     public void PlayerHitSomething()
     {
 
         Debug.Log("Schaden erhalten");
+        if(damage < 1)
+        {
+            explosionsRenderer[0].enabled = true;
+            StartCoroutine(FadeTo(0.0f, 1.0f, explosionsRenderer[0]));
+            explosionCounter++;
+        }
+            
         IsBurning = true;
         damage++;
         invulnerable = true;
@@ -74,6 +89,27 @@ public class Level1PlayerController : MonoBehaviour
     {
 		cameraMovement = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Level1CameraMovement>();
         rigid = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).name == "SpielerSchiffKaputt")
+            {
+                GameObject spielerSchiffKaputt = transform.GetChild(i).gameObject;
+                for (int k = 0; k < spielerSchiffKaputt.transform.childCount; k++)
+                {
+                    schiffRenderer.Add(spielerSchiffKaputt.transform.GetChild(k).GetComponent<SpriteRenderer>());
+                }
+            }
+            if (transform.GetChild(i).name == "SpielerExplosionen")
+            {
+                GameObject spielerExplosionen = transform.GetChild(i).gameObject;
+                for (int k = 0; k < spielerExplosionen.transform.childCount; k++)
+                {
+                    explosionsRenderer.Add(spielerExplosionen.transform.GetChild(k).GetComponent<SpriteRenderer>());
+                }
+            }
+        }
+        
         /*
         foreach (Transform ts in transform)
         {
@@ -84,15 +120,26 @@ public class Level1PlayerController : MonoBehaviour
         */
     }
 
-	void OnCollisionEnter2D(Collision2D col)
+    IEnumerator FadeTo(float aValue, float aTime, SpriteRenderer renderer)
+    {
+        float alpha = renderer.material.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
+            renderer.material.color = newColor;
+            yield return null;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
 	{
-		Debug.Log("Collision Enter");
+		Debug.Log("Collision Enter: " + col.gameObject.name);
 		if (col.gameObject.tag == "Finish") {
 			cameraMovement.Stop = true;
 			var contact = col.GetContact(0);
 			landing = new DirectedPosition(contact.point, contact.normal);
 		}
-        else if(!invulnerable)
+        if(col.gameObject.tag != "Finish" && !invulnerable)
         {
             PlayerHitSomething();
         }
@@ -127,32 +174,63 @@ public class Level1PlayerController : MonoBehaviour
             goingUp = false;
     }
 
+
     private void FixedUpdate()
     {
-		if(destroyed != null) {
+        if (destroyed != null)
+        {
+            explosionTimer -= Time.deltaTime;
+            if (explosionTimer < 0)
+            {
+                explosionTimer = explosionTimerLimit;
+                explosionCounter++;
+                if (explosionCounter < 5)
+                {
+                    explosionsRenderer[explosionCounter].enabled = true;
+                    StartCoroutine(FadeTo(0.0f, 0.6f, explosionsRenderer[explosionCounter]));
+                    if (explosionCounter == 2)
+                    {
+                        sr.enabled = false;
+                        schiffRenderer[0].enabled = true;
+                    }
+                    if (explosionCounter == 4)
+                    {
+                        schiffRenderer[0].enabled = false;
+                        schiffRenderer[1].enabled = true;
+                    }
+                }
+            }
+            explosionsRenderer[1].enabled = true;
+            StartCoroutine(FadeTo(0.0f, 0.6f, explosionsRenderer[1]));
             GetComponent<BoxCollider2D>().enabled = false;
-			if ((System.DateTime.Now - destroyed)?.TotalSeconds > deathCamTime) {
-				SceneManager.LoadScene("IntroScene");
-			}
-			return;
-		}
-		if (landing != null) {
-			var landingPoint = landing ?? new DirectedPosition(Vector2.zero, Vector2.zero);
-			rigid.velocity = Vector2.zero;
-			transform.position = landingPoint.Point;
-			transform.rotation = Quaternion.FromToRotation(transform.up, landingPoint.Normal) * transform.rotation;
-			return;
-		}
-        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        rigid.velocity = new Vector2(0f, Level1CameraMovement.camMovementSpeed);
-        if (goingLeft && !goingRight && (pos.x > 0.02f))
-            rigid.velocity = new Vector2(-horizontalSpeed, rigid.velocity.y);
-        if (!goingLeft && goingRight && (pos.x < 0.98f))
-            rigid.velocity = new Vector2(horizontalSpeed, rigid.velocity.y);
-        if (goingDown && !goingUp && (pos.y > 0.05f))
-            rigid.velocity = new Vector2(rigid.velocity.x, -verticalSpeed + Level1CameraMovement.camMovementSpeed);
-        if (!goingDown && goingUp && (pos.y < 0.95f))
-            rigid.velocity = new Vector2(rigid.velocity.x, verticalSpeed + Level1CameraMovement.camMovementSpeed);
+            GetComponent<Feuersteuerung>().ShipWasDestroyed();
+
+            if ((System.DateTime.Now - destroyed)?.TotalSeconds > deathCamTime)
+            {
+                SceneManager.LoadScene("IntroScene");
+            }
+            return;
+        }
+        if (landing != null)
+        {
+            var landingPoint = landing ?? new DirectedPosition(Vector2.zero, Vector2.zero);
+            rigid.velocity = Vector2.zero;
+            transform.position = landingPoint.Point;
+            transform.rotation = Quaternion.FromToRotation(transform.up, landingPoint.Normal) * transform.rotation;
+            return;
+        }
+        if (destroyed == null)
+        {
+            Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+            rigid.velocity = new Vector2(0f, Level1CameraMovement.camMovementSpeed);
+            if (goingLeft && !goingRight && (pos.x > 0.02f))
+                rigid.velocity = new Vector2(-horizontalSpeed, rigid.velocity.y);
+            if (!goingLeft && goingRight && (pos.x < 0.98f))
+                rigid.velocity = new Vector2(horizontalSpeed, rigid.velocity.y);
+            if (goingDown && !goingUp && (pos.y > 0.05f))
+                rigid.velocity = new Vector2(rigid.velocity.x, -verticalSpeed + Level1CameraMovement.camMovementSpeed);
+            if (!goingDown && goingUp && (pos.y < 0.95f))
+                rigid.velocity = new Vector2(rigid.velocity.x, verticalSpeed + Level1CameraMovement.camMovementSpeed);
+        }
     }
-    
 }

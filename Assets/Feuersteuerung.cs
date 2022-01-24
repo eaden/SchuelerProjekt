@@ -10,7 +10,18 @@ public class Feuersteuerung : MonoBehaviour
     int direction = 1;
     float zaehler = 0.05f;
     float zaehlerStartpunkt = 0.05f;
+    public bool destroyed = false;
     // Start is called before the first frame update
+
+    public void ShipWasDestroyed()
+    {
+        for (int i = 0; i < rendererListe.Count; i++)
+        {
+            rendererListe[i].enabled = false;
+        }
+        destroyed = true;
+    }
+
     void Start()
     {
         for(int i = 0; i < transform.childCount; i++)
@@ -25,7 +36,7 @@ public class Feuersteuerung : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rendererCount > 0)
+        if (rendererCount > 0 && !destroyed)
         {
             zaehler -= Time.deltaTime;
             if(zaehler < 0)

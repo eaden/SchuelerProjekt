@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MoveIntoDirection : MonoBehaviour
 {
+    bool started = false;
+    GameObject firstOne;
     GameObject otherOne;
     Vector3 startposition;
     Vector3 u;
@@ -16,60 +18,73 @@ public class MoveIntoDirection : MonoBehaviour
     float kurzzurueckTimerLimit = 0.15f;
     bool stoppen = false;
     bool rueckzug = false;
-    float stoppenTimer = 0.5f;
-    float stoppenTimerLimit = 0.5f;
+    float stoppenTimer = 0.3f;
+    float stoppenTimerLimit = 0.3f;
     // Start is called before the first frame update
     void Start()
     {
-        otherOne = GameObject.Find("OtherSprite");
-        startposition = transform.position;
+        
+    }
+
+    public void LetsMove(GameObject first, GameObject second)
+    {
+        firstOne = first;
+        startposition = firstOne.transform.position;
+        otherOne = second;
+        started = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        u = otherOne.transform.position - transform.position;
-        unorm = u.normalized;
-        if(rueckzug)
+        if(started)
         {
-            v = startposition- transform.position;
-            vnorm = v.normalized;
-            transform.Translate(vnorm * Time.deltaTime *5);
-            if (v.magnitude < 0.5f)
+            u = otherOne.transform.position - firstOne.transform.position;
+            unorm = u.normalized;
+            if (rueckzug)
             {
-                rueckzug = false;
+                v = startposition - firstOne.transform.position;
+                vnorm = v.normalized;
+                firstOne.transform.Translate(vnorm * Time.deltaTime * 6);
+                if (v.magnitude < 0.2f)
+                {
+                    rueckzug = false;
+                    firstOne.transform.position = startposition;
+                    started = false;
+                }
             }
-        }
-        if(stoppen)
-        {
-            stoppenTimer -= Time.deltaTime;
-            if(stoppenTimer < 0)
+            if (stoppen)
             {
-                stoppen = false;
-                stoppenTimer = stoppenTimerLimit;
-                rueckzug = true;
+                stoppenTimer -= Time.deltaTime;
+                if (stoppenTimer < 0)
+                {
+                    stoppen = false;
+                    stoppenTimer = stoppenTimerLimit;
+                    rueckzug = true;
+                }
             }
-        }
-        if (kurzzurueck)
-        {
-            transform.Translate(-unorm * Time.deltaTime*5);
-            kurzzurueckTimer -= Time.deltaTime;
-            if(kurzzurueckTimer < 0)
+            if (kurzzurueck)
             {
-                kurzzurueck = false;
-                kurzzurueckTimer = kurzzurueckTimerLimit;
-                stoppen = true;
+                firstOne.transform.Translate(-unorm * Time.deltaTime * 7);
+                kurzzurueckTimer -= Time.deltaTime;
+                if (kurzzurueckTimer < 0)
+                {
+                    kurzzurueck = false;
+                    kurzzurueckTimer = kurzzurueckTimerLimit;
+                    stoppen = true;
+                }
             }
-        }
-        if (ansturm)
-        {
-            transform.Translate(unorm * Time.deltaTime*7);
-            if (u.magnitude < 0.5f)
+            if (ansturm)
             {
-                ansturm = false;
-                kurzzurueck = true;
-            }
+                firstOne.transform.Translate(unorm * Time.deltaTime * 12);
+                if (u.magnitude < 0.5f)
+                {
+                    ansturm = false;
+                    kurzzurueck = true;
+                }
 
+            }
         }
+
     }
 }

@@ -24,6 +24,7 @@ public class SteinSchereManager : MonoBehaviour
     GameObject computerSpriteMask;
     GameObject computerAugen;
     RotateScript rscript;
+    MoveIntoDirection mscript;
     BoxCollider2D clickAlien;
     CircleCollider2D clickSonne;
     CircleCollider2D clickPlanet;
@@ -35,10 +36,13 @@ public class SteinSchereManager : MonoBehaviour
     float shuffleTimerLimit = 0.7f;
 
     int computerAuswahl = 0;
+    GameObject computerAuswahlObjekt;
+    GameObject playerAuswahlObjekt;
     bool computerSneakpeak = false;
 
     bool clickablesAktiv = false;
     float warteTimer = 5f;
+    bool auswahlPhase;
 
     void SetzeClickableAktiv()
     {
@@ -73,12 +77,15 @@ public class SteinSchereManager : MonoBehaviour
         switch (name)
         {
             case "ClickAlien":
+                playerAuswahlObjekt = clickAlien.gameObject;
                 gewaehltesObjektPlayer = 0;
                 break;
             case "ClickSonne":
+                playerAuswahlObjekt = clickSonne.gameObject;
                 gewaehltesObjektPlayer = 1;
                 break;
             case "ClickPlanet":
+                playerAuswahlObjekt = clickPlanet.gameObject;
                 gewaehltesObjektPlayer = 2;
                 break;
             default:
@@ -123,7 +130,8 @@ public class SteinSchereManager : MonoBehaviour
 
     void ComputerWaehlt()
     {
-        computerAuswahl = Random.Range(0, 3);
+        //computerAuswahl = Random.Range(0, 3);
+        computerAuswahl = 0;
         if (Random.Range(1, 6) > 1)
         {
             computerSneakpeak = true;
@@ -144,12 +152,15 @@ public class SteinSchereManager : MonoBehaviour
         switch (computerAuswahl)
         {
             case 0:
+                computerAuswahlObjekt = computerAlien;
                 // Alien
                 break;
             case 1:
+                computerAuswahlObjekt = computerSonne;
                 // Sonne
                 break;
             case 2:
+                computerAuswahlObjekt = computerPlanet;
                 // Planet
                 break;
             default:
@@ -158,19 +169,22 @@ public class SteinSchereManager : MonoBehaviour
         }
     }
 
-    void SchauWerGewinnt()
+    int SchauWerGewinnt()
     {
         if(gewaehltesObjektPlayer == computerAuswahl)
         {
             Debug.Log("Draw");
+            return 0;
         }
         else if(computerAuswahl== ((gewaehltesObjektPlayer + 1)%3))
         {
-            Debug.Log("Spieler gewinnt");
+            Debug.Log("Wir gewinnen");
+            return 1;
         }
         else
         {
             Debug.Log("Computer gewinnt");
+            return -1;
         }
     }
 
@@ -193,10 +207,12 @@ public class SteinSchereManager : MonoBehaviour
         clickSonne = GameObject.Find("ClickSonne").GetComponent<CircleCollider2D>();
         clickPlanet = GameObject.Find("ClickPlanet").GetComponent<CircleCollider2D>();
         rscript = clickAlien.transform.parent.GetComponent<RotateScript>();
+        mscript = GetComponent<MoveIntoDirection>();
 
         computerSpriteMask = GameObject.Find("ComputerSpriteMask");
         computerAugen = GameObject.Find("ComputerAugen");
         computerAugen.SetActive(false);
+        auswahlPhase = true;
 
         // Computerauswahl
         ComputerWaehlt();
@@ -213,30 +229,44 @@ public class SteinSchereManager : MonoBehaviour
         }
         else
         {
-            if (!clickablesAktiv)
-                SetzeClickableAktiv();
-            if(objektWurdeGewaehlt)
+            if (auswahlPhase)
             {
-                objektWurdeGewaehlt = false;
-                SetzeClickableInaktiv();
-                ComputerSneakPeakAus();
-                RotateSwitch();
-                shuffle = true;
+                if (!clickablesAktiv)
+                    SetzeClickableAktiv();
+                if (objektWurdeGewaehlt)
+                {
+                    auswahlPhase = false;
+                    objektWurdeGewaehlt = false;
+                    SetzeClickableInaktiv();
+                    ComputerSneakPeakAus();
+                    RotateSwitch();
+                    shuffle = true;
+                }
             }
-            if(shuffle)
+            if (shuffle)
             {
                 shuffleTimer -= Time.deltaTime;
-                if(shuffleTimer < 0)
+                if (shuffleTimer < 0)
                 {
                     ComputerShuffle();
                     shuffleTimer = shuffleTimerLimit;
                 }
             }
-            if(shuffleAbgeschlossen)
+            if (shuffleAbgeschlossen)
             {
                 shuffleAbgeschlossen = false;
-                SchauWerGewinnt();
+                int wer = SchauWerGewinnt();
+
+                if (wer < 0)
+                {
+                    mscript.LetsMove(computerAuswahlObjekt, playerAuswahlObjekt);
+                }
+                else if (wer > 0)
+                {
+                    mscript.LetsMove(playerAuswahlObjekt, computerAuswahlObjekt);
+                }
             }
         }
+
     }
 }

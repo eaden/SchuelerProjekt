@@ -26,7 +26,9 @@ public class AudioManager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = s.volume;
-
+            s.source2 = gameObject.AddComponent<AudioSource>();
+            s.source2.clip = s.clip;
+            s.source2.volume = s.volume;
         }
     }
 

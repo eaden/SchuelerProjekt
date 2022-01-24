@@ -17,6 +17,11 @@ public class ButtonEvents : MonoBehaviour
         
     }
 
+    public void Weitermachen_ChangeToLastScene()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
     public void ChangeSceneToFirstLevel()
     {
         SceneManager.LoadScene("Level1");

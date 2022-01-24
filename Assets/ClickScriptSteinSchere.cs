@@ -19,7 +19,7 @@ public class ClickScriptSteinSchere : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (gameObject.tag == "SearchedItem" && !ssm.objektWurdeGewaehlt)
+        if (gameObject.tag == "SearchedItem")
         {
             ssm.ObjektWahl(gameObject.name);
             // richtiges Item angeklickt

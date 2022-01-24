@@ -11,7 +11,7 @@ public class SteinSchereManager : MonoBehaviour
     }
     public bool objektWurdeGewaehlt = false;
     public bool warteTimerLaeuft = true;
-    string gewaehltesObjekt = "";
+    int gewaehltesObjektPlayer = 0;
 
     // Variables
     GameObject derComputer;
@@ -23,11 +23,13 @@ public class SteinSchereManager : MonoBehaviour
     GameObject computerMiniPlanet;
     GameObject computerSpriteMask;
     GameObject computerAugen;
+    RotateScript rscript;
     BoxCollider2D clickAlien;
     CircleCollider2D clickSonne;
     CircleCollider2D clickPlanet;
 
     bool shuffle = false;
+    bool shuffleAbgeschlossen = false;
     int shuffleCounter = 0;
     float shuffleTimer = 0.7f;
     float shuffleTimerLimit = 0.7f;
@@ -46,6 +48,17 @@ public class SteinSchereManager : MonoBehaviour
         clickablesAktiv = true;
     }
 
+   void SachenWeg()
+    {
+        // Rotation
+
+    }
+
+    void RotateSwitch()
+    {
+        rscript.istAmRotieren = !rscript.istAmRotieren;
+    }
+
     void SetzeClickableInaktiv()
     {
         clickAlien.enabled = false;
@@ -57,22 +70,55 @@ public class SteinSchereManager : MonoBehaviour
     public void ObjektWahl(string name)
     {
         objektWurdeGewaehlt = true;
-        gewaehltesObjekt = name;
+        switch (name)
+        {
+            case "ClickAlien":
+                gewaehltesObjektPlayer = 0;
+                break;
+            case "ClickSonne":
+                gewaehltesObjektPlayer = 1;
+                break;
+            case "ClickPlanet":
+                gewaehltesObjektPlayer = 2;
+                break;
+            default:
+                Debug.Log("Something wrong");
+                break;
+        }
     }
 
     void ComputerShuffle()
     {
         int childs = derComputer.transform.childCount;
-        derComputer.transform.GetChild((shuffleCounter+2) % childs).gameObject.SetActive(false);
-        derComputer.transform.GetChild((shuffleCounter) % childs).gameObject.SetActive(true);
+        if (shuffleCounter < 6)
+        {
+            derComputer.transform.GetChild((shuffleCounter + 2) % childs).gameObject.SetActive(false);
+            derComputer.transform.GetChild((shuffleCounter) % childs).gameObject.SetActive(true);
+        }
+        else
+        {
+            derComputer.transform.GetChild((shuffleCounter + 2) % childs).gameObject.SetActive(false);
+            derComputer.transform.GetChild(computerAuswahl % childs).gameObject.SetActive(true);
+        }
+            
         //derComputer.transform.GetChild((shuffleCounter + (childs - 1)) % childs).gameObject.SetActive(false);
         //derComputer.transform.GetChild(shuffleCounter % childs).gameObject.SetActive(true);
         shuffleCounter++;
-        if (shuffleCounter > 5)
+        if (shuffleCounter > 6)
         {
             shuffle = false;
             shuffleCounter = 0;
+            shuffleAbgeschlossen = true;
         }
+    }
+
+    void ComputerSneakPeakAus()
+    {
+        for (int i = 0; i < computerSpriteMask.transform.childCount; i++)
+        {
+            computerSpriteMask.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        computerAugen.SetActive(false);
     }
 
     void ComputerWaehlt()
@@ -110,7 +156,22 @@ public class SteinSchereManager : MonoBehaviour
                 Debug.Log("Hier ist was falsch gegangen");
                 break;
         }
+    }
 
+    void SchauWerGewinnt()
+    {
+        if(gewaehltesObjektPlayer == computerAuswahl)
+        {
+            Debug.Log("Draw");
+        }
+        else if(computerAuswahl== ((gewaehltesObjektPlayer + 1)%3))
+        {
+            Debug.Log("Spieler gewinnt");
+        }
+        else
+        {
+            Debug.Log("Computer gewinnt");
+        }
     }
 
     void Start()
@@ -131,6 +192,8 @@ public class SteinSchereManager : MonoBehaviour
         clickAlien = GameObject.Find("ClickAlien").GetComponent<BoxCollider2D>();
         clickSonne = GameObject.Find("ClickSonne").GetComponent<CircleCollider2D>();
         clickPlanet = GameObject.Find("ClickPlanet").GetComponent<CircleCollider2D>();
+        rscript = clickAlien.transform.parent.GetComponent<RotateScript>();
+
         computerSpriteMask = GameObject.Find("ComputerSpriteMask");
         computerAugen = GameObject.Find("ComputerAugen");
         computerAugen.SetActive(false);
@@ -156,6 +219,8 @@ public class SteinSchereManager : MonoBehaviour
             {
                 objektWurdeGewaehlt = false;
                 SetzeClickableInaktiv();
+                ComputerSneakPeakAus();
+                RotateSwitch();
                 shuffle = true;
             }
             if(shuffle)
@@ -166,6 +231,11 @@ public class SteinSchereManager : MonoBehaviour
                     ComputerShuffle();
                     shuffleTimer = shuffleTimerLimit;
                 }
+            }
+            if(shuffleAbgeschlossen)
+            {
+                shuffleAbgeschlossen = false;
+                SchauWerGewinnt();
             }
         }
     }

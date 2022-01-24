@@ -5,6 +5,7 @@ using UnityEngine;
 public class RotateScript : MonoBehaviour
 {
     Vector3 rotateVector;
+    public bool istAmRotieren = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +15,7 @@ public class RotateScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(rotateVector * Time.deltaTime);
+        if(istAmRotieren)
+            transform.Rotate(rotateVector * Time.deltaTime);
     }
 }

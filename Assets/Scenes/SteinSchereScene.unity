@@ -6021,6 +6021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d408471697fed41808a21137fff09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  istAmRotieren: 1
 --- !u!1 &1912688716
 GameObject:
   m_ObjectHideFlags: 0

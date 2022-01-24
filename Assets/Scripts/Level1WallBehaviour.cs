@@ -15,12 +15,4 @@ public class Level1WallBehaviour : MonoBehaviour
     {
         
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            collision.gameObject.GetComponent<Level1PlayerController>().PlayerHitSomething();
-        }
-    }
 }

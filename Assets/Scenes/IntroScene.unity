@@ -1284,6 +1284,173 @@ MonoBehaviour:
     volume: 0.5
     source: {fileID: 0}
     source2: {fileID: 0}
+  - name: aberEtwasFehltNoch
+    clip: {fileID: 8300000, guid: 0ca60a913b04e67459782feff1ab5727, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: achtungImmerAusweichen
+    clip: {fileID: 8300000, guid: 16c50341c2bf7bc4cba101b9f4221fe1, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: Beatbox
+    clip: {fileID: 8300000, guid: 1fa5bbe66dfbc1746bdcdd1b6889b485, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: BINGNaechsteRunde
+    clip: {fileID: 8300000, guid: cf764d24344c2b6429cef714d0517c62, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: BINGRichtig
+    clip: {fileID: 8300000, guid: efabf448125ede547b0fb331af8fb210, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: computerProgrammieren
+    clip: {fileID: 8300000, guid: 9b4f3662ea412e44c8006d2e9bcd440d, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: deineReiseIstJetztVorbei
+    clip: {fileID: 8300000, guid: 1506d852c9878a847972953c1e148498, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: dieRichtigenTeileObenImKasten
+    clip: {fileID: 8300000, guid: c917dfc76ef57e24a84760478dac9756, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: explosionDoppel
+    clip: {fileID: 8300000, guid: 063f6c5e5ef4b5643a3649a6df3c56ad, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: explosionEtwasLaengerUndLeise
+    clip: {fileID: 8300000, guid: 57b2cde0bdb92cb48b72dae4fe6fc498, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: explosionKurz
+    clip: {fileID: 8300000, guid: 19ae63e0457cb7f4f98538f22cee5786, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: fff
+    clip: {fileID: 8300000, guid: 296276c534414ca42b3107ae54044cf5, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: frr
+    clip: {fileID: 8300000, guid: 08ab4ea3acb014949851efd4b4810bb3, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: FuturEins
+    clip: {fileID: 8300000, guid: 16f124f6a65eb9549b34da75f760226a, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: FuturEinsZwei
+    clip: {fileID: 8300000, guid: aa21d5ce1f8fcc24babb46288f10acbd, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: gesangEtwasLaenger
+    clip: {fileID: 8300000, guid: 0557e42222d4e58438f45d77be6524e1, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: gesangSummen
+    clip: {fileID: 8300000, guid: 632022996cd0ced4a94ca7f29765ca4a, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: geschafftLeichtUberdreht
+    clip: {fileID: 8300000, guid: 632022996cd0ced4a94ca7f29765ca4a, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: hilfeEinRiesigesAlien
+    clip: {fileID: 8300000, guid: 852ca30445739cf4db901381094a4176, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: JA
+    clip: {fileID: 8300000, guid: 53bb067c6387df6488e652c51acecdb1, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: lassUnsZumMarsReisen
+    clip: {fileID: 8300000, guid: f94cc9b0ec508bd44927e479a5c1efce, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: nochmal
+    clip: {fileID: 8300000, guid: 8e1bd58b2b00f7443bdfd44f568bf6af, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: ohSuessEinKleinesAlien
+    clip: {fileID: 8300000, guid: e0d256ba150327d4e888187a81bee356, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: OKAYDieRaketezuendet
+    clip: {fileID: 8300000, guid: aea09e38343b17e4292439c23bf1c8f9, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: raketenZuendung
+    clip: {fileID: 8300000, guid: c97d0708dd8c75e4888261d7b3f4d05b, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: richtigesGluecksspiel
+    clip: {fileID: 8300000, guid: 68632b680aa432b40b9732710b0dfc75, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: schade
+    clip: {fileID: 8300000, guid: 287143764e7c5c445b1468ed01912ab2, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: schnellBeeilDich
+    clip: {fileID: 8300000, guid: 9c6dbe352045bb448b9118afbba99e8d, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: superWirSindGelandet
+    clip: {fileID: 8300000, guid: 47151d64e428748458c110bd57d6a896, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: tschueeess
+    clip: {fileID: 8300000, guid: 83f934f0c5af610408885f8a7d7fb12a, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: vielSpassBeiDerNaechstenRunde
+    clip: {fileID: 8300000, guid: cadfca28d7f565b47bbad3566c892d25, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: wowAllesFertig
+    clip: {fileID: 8300000, guid: d4e58192a627c9743a5a474b6363d120, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: yeahGeschafft
+    clip: {fileID: 8300000, guid: b9e65d1a667aa3d418cb86ed3cd0531e, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  mySource1: {fileID: 0}
+  mySource2: {fileID: 0}
 --- !u!4 &1732008794
 Transform:
   m_ObjectHideFlags: 0

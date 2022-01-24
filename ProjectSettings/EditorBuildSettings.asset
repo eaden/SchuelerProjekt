@@ -11,4 +11,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 56ed5d0f9d141d041b077c47beb72571
+  - enabled: 1
+    path: Assets/Scenes/AnklickenSpiel.unity
+    guid: 35af54153b7d3e84eab40ebb9225ee13
+  - enabled: 1
+    path: Assets/Scenes/SteinSchereScene.unity
+    guid: b057de95070cbbc4eaa3529e06e91e2c
+  - enabled: 1
+    path: Assets/Scenes/Teilnehmende.unity
+    guid: 04b8d37cd90ea2042bcf8213edfa6220
+  - enabled: 1
+    path: Assets/Scenes/ZSAbflug.unity
+    guid: dc766f0c2b90d3c4782cbd1e14dd2d9f
+  - enabled: 1
+    path: Assets/Scenes/ZSStart.unity
+    guid: 2f9b09b8cd0d0424aa372480aa61c228
   m_configObjects: {}

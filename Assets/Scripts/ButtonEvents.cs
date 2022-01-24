@@ -21,23 +21,8 @@ public class ButtonEvents : MonoBehaviour
     {
         if(GameManager.Instance!=null)
         {
-            int i = GameManager.Instance.levelFortschritt;
-            switch (i)
-            {
-                case 1:
-                    SceneManager.LoadScene("SteinSchereScene");
-                    break;
-                case 2:
-                    SceneManager.LoadScene("ZSStart");
-                    break;
-                case 3:
-                    SceneManager.LoadScene("AnklickenSpiel");
-                    break;
-                default:
-                    Debug.Log("Hier war was falsch");
-                    break;
-            }
-            
+            AudioManager.Instance.Play1("vielSpassBeiDerNaechstenRunde");
+            IntroManager.Instance.weitermachen = true;
         }
 
     }
@@ -48,7 +33,8 @@ public class ButtonEvents : MonoBehaviour
     
     public void ChangeSceneToFirstLevel()
     {
-        SceneManager.LoadScene("Level1");
+        AudioManager.Instance.Play1("lassUnsZumMarsReisen");
+        SceneManager.LoadScene("ZSStart");
     }
 
     public void CloseGame()

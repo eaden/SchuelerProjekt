@@ -2139,6 +2139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objektWurdeGewaehlt: 0
   warteTimerLaeuft: 0
+  moveAnimationFertig: 0
 --- !u!4 &779801514
 Transform:
   m_ObjectHideFlags: 0

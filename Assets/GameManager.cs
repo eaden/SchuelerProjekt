@@ -10,7 +10,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+            
         DontDestroyOnLoad(Instance);
     }
 
@@ -26,6 +33,14 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AudioManager.Instance.Play("oui");
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            AudioManager.Instance.Play2("gesang1");
         }
     }
 }

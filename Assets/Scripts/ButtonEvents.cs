@@ -28,7 +28,7 @@ public class ButtonEvents : MonoBehaviour
                     SceneManager.LoadScene("SteinSchereScene");
                     break;
                 case 2:
-                    SceneManager.LoadScene("Level1");
+                    SceneManager.LoadScene("ZSStart");
                     break;
                 case 3:
                     SceneManager.LoadScene("AnklickenSpiel");

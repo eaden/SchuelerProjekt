@@ -1244,6 +1244,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fff4830e50c9e429f2b8ef6a6b7364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1732008792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1732008794}
+  - component: {fileID: 1732008793}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1732008793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732008792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4585144c5de3cf549822c2ac547a6eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: oui
+    clip: {fileID: 8300000, guid: 98104b98e21452b459e63250b152b3d5, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: gesang1
+    clip: {fileID: 8300000, guid: a35f6e6b4debbb845ad0b94563c2b801, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+--- !u!4 &1732008794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732008792}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 200.14983, y: 137.15468, z: 18.961884}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1733557083
 GameObject:
   m_ObjectHideFlags: 0

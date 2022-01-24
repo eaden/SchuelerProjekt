@@ -92,7 +92,7 @@ public class Level1PlayerController : MonoBehaviour
 			var contact = col.GetContact(0);
 			landing = new DirectedPosition(contact.point, contact.normal);
 		}
-        if(col.gameObject.tag == "Enemy" && !invulnerable)
+        else if(!invulnerable)
         {
             PlayerHitSomething();
         }
@@ -130,6 +130,7 @@ public class Level1PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
 		if(destroyed != null) {
+            GetComponent<BoxCollider2D>().enabled = false;
 			if ((System.DateTime.Now - destroyed)?.TotalSeconds > deathCamTime) {
 				SceneManager.LoadScene("IntroScene");
 			}

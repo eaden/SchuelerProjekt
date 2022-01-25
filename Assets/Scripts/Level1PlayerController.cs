@@ -30,7 +30,10 @@ public class Level1PlayerController : MonoBehaviour
         //Debug.Log("Schaden erhalten");
         if(damage < 1)
         {
-            AudioManager.Instance.Play2("explosionKurz");
+            if(Random.Range(0,2) < 1)
+                AudioManager.Instance.Play2("explosionKurz");
+            else
+                AudioManager.Instance.Play2("frr");
             explosionsRenderer[0].enabled = true;
             StartCoroutine(FadeTo(0.0f, 1.0f, explosionsRenderer[0]));
             explosionCounter++;
@@ -90,6 +93,8 @@ public class Level1PlayerController : MonoBehaviour
     void Start() 
     {
         GameManager.Instance.levelFortschritt = 2;
+        AudioManager.Instance.SetLoop3(true);
+        AudioManager.Instance.Play3("gesangEins");
 
 		cameraMovement = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Level1CameraMovement>();
         rigid = GetComponent<Rigidbody2D>();
@@ -226,6 +231,8 @@ public class Level1PlayerController : MonoBehaviour
             if(!landeSound)
             {
                 AudioManager.Instance.Play1("superWirSindGelandet");
+                AudioManager.Instance.SetLoop3(false);
+                AudioManager.Instance.Stop3();
                 landeSound = true;
             }
             var landingPoint = landing ?? new DirectedPosition(Vector2.zero, Vector2.zero);

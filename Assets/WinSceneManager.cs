@@ -10,7 +10,7 @@ public class WinSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AudioManager.Instance.Stop3();
     }
 
     // Update is called once per frame

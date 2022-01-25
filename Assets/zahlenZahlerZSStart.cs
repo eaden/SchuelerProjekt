@@ -19,6 +19,8 @@ public class zahlenZahlerZSStart : MonoBehaviour
     float ausmachenTimer = 3f;
     bool szenenWechsel = false;
     int zweiteZahl = 0;
+    bool anfangsPhase = true;
+    bool hintergrundMusikAnmachen = false;
 
 
 
@@ -32,6 +34,8 @@ public class zahlenZahlerZSStart : MonoBehaviour
         RaketeOhneFeuer = GameObject.Find("RaketeOhneFeuer");
         RaketeMitFeuer = GameObject.Find("RaketeMitFeuer");
         RaketeMitFeuer.SetActive(false);
+        AudioManager.Instance.SetLoop3(false);
+
     }
 
 
@@ -39,6 +43,15 @@ public class zahlenZahlerZSStart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(anfangsPhase && !AudioManager.Instance.Source1StillPlaying())
+        {
+            if(!hintergrundMusikAnmachen)
+            {
+                AudioManager.Instance.Play3("gesangVerzerrt");
+                hintergrundMusikAnmachen = true;
+                anfangsPhase = false;
+            }
+        }
         if (aktuelleZahl > 0)
         {
             // runterzaehlen
@@ -66,7 +79,7 @@ public class zahlenZahlerZSStart : MonoBehaviour
                 // Rakete mit Feuer aktivieren + Feuersound abspielen
                 RaketeOhneFeuer.SetActive(false);
                 RaketeMitFeuer.SetActive(true);
-                AudioManager.Instance.SwitchLoop2();
+                AudioManager.Instance.SetLoop2(true);
                 AudioManager.Instance.Play2("raketenZuendung");
                 feuerAktiviert = true;
                 feuerPhase = true;
@@ -116,7 +129,8 @@ public class zahlenZahlerZSStart : MonoBehaviour
                 {
                     if(!szenenWechsel)
                     {
-                        AudioManager.Instance.SwitchLoop2();
+                        AudioManager.Instance.SetLoop2(false);
+                        AudioManager.Instance.SetLoop3(true);
                         AudioManager.Instance.Stop2();
                         SceneManager.LoadScene("SteinSchereScene");
                         szenenWechsel = true;

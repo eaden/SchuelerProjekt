@@ -117,6 +117,9 @@ public class ClickSceneManager : MonoBehaviour
         SzeneAktivSetzen(szene1);
 
         AudioManager.Instance.Play1("dieRichtigenTeileObenImKasten");
+        AudioManager.Instance.Stop3();
+        AudioManager.Instance.SetLoop3(true);
+        AudioManager.Instance.Play3("gesangEtwasLaenger");
     }
 
     void Update()
@@ -127,6 +130,8 @@ public class ClickSceneManager : MonoBehaviour
             {
                 if(!gewonnenUebergang)
                 {
+                    AudioManager.Instance.Stop3();
+                    AudioManager.Instance.SetLoop3(false);
                     SceneManager.LoadScene("WinScene");
                     gewonnenUebergang = true;
                 }

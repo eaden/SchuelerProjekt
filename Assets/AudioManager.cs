@@ -15,6 +15,9 @@ public class AudioManager : MonoBehaviour
     [HideInInspector]
     public AudioSource mySource2;
 
+    [HideInInspector]
+    public AudioSource mySource3;
+
     void Awake()
     {
         if (Instance == null)
@@ -39,6 +42,8 @@ public class AudioManager : MonoBehaviour
         */
         mySource1 = gameObject.AddComponent<AudioSource>();
         mySource2 = gameObject.AddComponent<AudioSource>();
+        mySource3 = gameObject.AddComponent<AudioSource>();
+        SetLoop3(true);
     }
 
     public bool Source1StillPlaying()
@@ -48,6 +53,10 @@ public class AudioManager : MonoBehaviour
     public bool Source2StillPlaying()
     {
         return mySource2.isPlaying;
+    }
+    public bool Source3StillPlaying()
+    {
+        return mySource3.isPlaying;
     }
     public void Stop1()
     {
@@ -63,6 +72,13 @@ public class AudioManager : MonoBehaviour
             mySource2.Stop();
         }
     }
+    public void Stop3()
+    {
+        if (mySource3.isPlaying)
+        {
+            mySource3.Stop();
+        }
+    }
     public void SwitchLoop1()
     {
         mySource1.loop = !mySource1.loop;
@@ -70,6 +86,22 @@ public class AudioManager : MonoBehaviour
     public void SwitchLoop2()
     {
         mySource2.loop = !mySource2.loop;
+    }
+    public void SwitchLoop3()
+    {
+        mySource3.loop = !mySource2.loop;
+    }
+    public void SetLoop1(bool wert)
+    {
+        mySource1.loop = wert;
+    }
+    public void SetLoop2(bool wert)
+    {
+        mySource2.loop = wert;
+    }
+    public void SetLoop3(bool wert)
+    {
+        mySource3.loop = wert;
     }
 
     public void Play1(string name)
@@ -95,6 +127,18 @@ public class AudioManager : MonoBehaviour
         mySource2.clip = s.clip;
         mySource2.volume = s.volume;
         mySource2.Play();
+    }
+    public void Play3(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sounds with name" + name + "not found");
+            return;
+        }
+        mySource3.clip = s.clip;
+        mySource3.volume = s.volume;
+        mySource3.Play();
     }
     /*
     public void Play(string name)

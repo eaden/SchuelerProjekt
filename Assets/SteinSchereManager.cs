@@ -265,6 +265,8 @@ public class SteinSchereManager : MonoBehaviour
                 if (gluecksspiel && !AudioManager.Instance.Source1StillPlaying())
                 {
                     warteTimer = -1f;
+                    AudioManager.Instance.SetLoop3(true);
+                    AudioManager.Instance.Play3("gesangSummen");
                 }
 
                 if (!gluecksspiel)

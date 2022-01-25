@@ -22,6 +22,7 @@ public class IntroManager : MonoBehaviour
                 GameObject.Find("Button_Weitermachen").SetActive(false);
             }
         }
+        AudioManager.Instance.Stop3();
         AudioManager.Instance.Play1("FuturEins");
     }
 

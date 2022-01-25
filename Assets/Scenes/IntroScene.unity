@@ -1360,13 +1360,13 @@ MonoBehaviour:
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: gesangEtwasLaenger
-    clip: {fileID: 8300000, guid: 0557e42222d4e58438f45d77be6524e1, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 139b786d7db51f24aa476418d293fe47, type: 3}
+    volume: 0.129
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: gesangSummen
-    clip: {fileID: 8300000, guid: 632022996cd0ced4a94ca7f29765ca4a, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 0557e42222d4e58438f45d77be6524e1, type: 3}
+    volume: 0.224
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: geschafftLeichtUberdreht
@@ -1391,7 +1391,7 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: nochmal
     clip: {fileID: 8300000, guid: 8e1bd58b2b00f7443bdfd44f568bf6af, type: 3}
-    volume: 0.5
+    volume: 0.174
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: ohSuessEinKleinesAlien
@@ -1449,8 +1449,19 @@ MonoBehaviour:
     volume: 0.5
     source: {fileID: 0}
     source2: {fileID: 0}
+  - name: gesangEins
+    clip: {fileID: 8300000, guid: 5ae066c5d5eeb0a4889bef06eacc0ae9, type: 3}
+    volume: 0.225
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: gesangVerzerrt
+    clip: {fileID: 8300000, guid: f0adfba75e81e7242a6526e3e2651b31, type: 3}
+    volume: 0.566
+    source: {fileID: 0}
+    source2: {fileID: 0}
   mySource1: {fileID: 0}
   mySource2: {fileID: 0}
+  mySource3: {fileID: 0}
 --- !u!4 &1732008794
 Transform:
   m_ObjectHideFlags: 0

@@ -146,7 +146,8 @@ public class Level1PlayerController : MonoBehaviour
 		if (col.gameObject.tag == "Finish") {
 			cameraMovement.Stop = true;
 			var contact = col.GetContact(0);
-			landing = new DirectedPosition(contact.point, contact.normal);
+			var norm = contact.normal;
+			landing = new DirectedPosition(contact.point - norm * 0.3f, new Vector2(-norm.y, norm.x));
 		}
         if(col.gameObject.tag != "Finish" && !invulnerable)
         {

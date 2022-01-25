@@ -25,6 +25,9 @@ public class ClickSceneManager : MonoBehaviour
     bool anfangsPhase = true;
     float anfangsTimer = 2f;
 
+    bool spielGewonnen = false;
+    bool gewonnenUebergang = false;
+
     public bool spielVerloren = false;
     bool verlorenSetzen = false;
     bool beendet = false;
@@ -45,10 +48,14 @@ public class ClickSceneManager : MonoBehaviour
                 SzeneAktivSetzen(szene3);
                 zaehlerScript.Reset();
                 break;
-            default:
+            case 4:
                 AudioManager.Instance.Play1("wowAllesFertig");
                 zaehlerScript.Geschafft();
+                spielGewonnen = true;
                 Debug.Log("Geschafft");
+                break;
+            default:
+                Debug.Log("Hier ist was falsch gegangen");
                 break;
         }
     }
@@ -114,6 +121,17 @@ public class ClickSceneManager : MonoBehaviour
 
     void Update()
     {
+        if(spielGewonnen)
+        {
+            if(!AudioManager.Instance.Source1StillPlaying())
+            {
+                if(!gewonnenUebergang)
+                {
+                    SceneManager.LoadScene("WinScene");
+                    gewonnenUebergang = true;
+                }
+            }
+        }
         if(spielVerloren)
         {
             if(!verlorenSetzen)

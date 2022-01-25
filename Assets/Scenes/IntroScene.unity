@@ -1341,7 +1341,7 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: fff
     clip: {fileID: 8300000, guid: 296276c534414ca42b3107ae54044cf5, type: 3}
-    volume: 0.238
+    volume: 0.371
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: frr
@@ -1351,12 +1351,12 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: FuturEins
     clip: {fileID: 8300000, guid: 16f124f6a65eb9549b34da75f760226a, type: 3}
-    volume: 0.5
+    volume: 0.155
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: FuturEinsZwei
     clip: {fileID: 8300000, guid: aa21d5ce1f8fcc24babb46288f10acbd, type: 3}
-    volume: 0.5
+    volume: 0.164
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: gesangEtwasLaenger
@@ -1376,12 +1376,12 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: hilfeEinRiesigesAlien
     clip: {fileID: 8300000, guid: 852ca30445739cf4db901381094a4176, type: 3}
-    volume: 0.174
+    volume: 0.065
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: JA
     clip: {fileID: 8300000, guid: 53bb067c6387df6488e652c51acecdb1, type: 3}
-    volume: 0.26
+    volume: 0.053
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: lassUnsZumMarsReisen

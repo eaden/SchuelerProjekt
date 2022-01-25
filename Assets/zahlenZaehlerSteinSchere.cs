@@ -21,9 +21,10 @@ public class zahlenZaehlerSteinSchere : MonoBehaviour
         einerZaehlerRenderer.sprite = spriteSammlung[aktuelleZahl]; 
         if(gameObject.CompareTag("Player"))
         {
-            if(aktuelleZahl > 5)
+            if(aktuelleZahl > 3)
             {
                 AudioManager.Instance.Play1("yeahGeschafft");
+                SceneManager.LoadScene("ZSAbflug");
             }
             else
             {
@@ -32,7 +33,7 @@ public class zahlenZaehlerSteinSchere : MonoBehaviour
         }
         else
         {
-            if (aktuelleZahl > 5)
+            if (aktuelleZahl > 3)
             {
                 // Verloren
                 AudioManager.Instance.Play1("explosionEtwasLaengerUndLeise");

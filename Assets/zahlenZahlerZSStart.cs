@@ -16,7 +16,8 @@ public class zahlenZahlerZSStart : MonoBehaviour
     bool zuendungAktiviert = false;
     bool sorgeAktiviert = false;
     bool ausmachenAktiviert = false;
-    int zahlZwischenspeichern = 0;
+    float ausmachenTimer = 3f;
+    bool szenenWechsel = false;
     int zweiteZahl = 0;
 
 
@@ -103,12 +104,23 @@ public class zahlenZahlerZSStart : MonoBehaviour
                 {
                     if(!ausmachenAktiviert)
                     {
-                        AudioManager.Instance.SwitchLoop2();
-                        AudioManager.Instance.Stop2();
                         ausmachenAktiviert = true;
-                        SceneManager.LoadScene("SteinSchereScene");
                     }
 
+                }
+            }
+            if(ausmachenAktiviert)
+            {
+                ausmachenTimer -= Time.deltaTime;
+                if(ausmachenTimer < 0)
+                {
+                    if(!szenenWechsel)
+                    {
+                        AudioManager.Instance.SwitchLoop2();
+                        AudioManager.Instance.Stop2();
+                        SceneManager.LoadScene("SteinSchereScene");
+                        szenenWechsel = true;
+                    }
                 }
             }
         }

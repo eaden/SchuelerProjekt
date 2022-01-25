@@ -33,6 +33,7 @@ public class ButtonEvents : MonoBehaviour
     
     public void ChangeSceneToFirstLevel()
     {
+        GameManager.Instance.levelFortschritt = 0;
         AudioManager.Instance.Play1("lassUnsZumMarsReisen");
         SceneManager.LoadScene("ZSStart");
     }

@@ -230,7 +230,7 @@ public class SteinSchereManager : MonoBehaviour
         computerAugen = GameObject.Find("ComputerAugen");
         computerAugen.SetActive(false);
         auswahlPhase = true;
-
+        AudioManager.Instance.Play1("computerProgrammieren");
         // Computerauswahl
         ComputerWaehlt();
         

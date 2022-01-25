@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class zahlenZahlerZSStart : MonoBehaviour
 {
@@ -11,6 +12,18 @@ public class zahlenZahlerZSStart : MonoBehaviour
     private float sekundenZaehler = 1f;
     GameObject RaketeOhneFeuer = null;
     GameObject RaketeMitFeuer = null;
+    bool feuerAktiviert = false;
+    bool zuendungAktiviert = false;
+    bool sorgeAktiviert = false;
+    bool ausmachenAktiviert = false;
+    int zahlZwischenspeichern = 0;
+    int zweiteZahl = 0;
+
+
+
+    // phasen
+    bool feuerPhase = false;
+    bool fehltPhase = false;
     void Start()
     {
         einerZaehlerRenderer = GetComponent<SpriteRenderer>();
@@ -47,9 +60,57 @@ public class zahlenZahlerZSStart : MonoBehaviour
         }
         else
         {
-            // Rakete mit Feuer aktivieren + Feuersound abspielen
-            RaketeOhneFeuer.SetActive(false);
-            RaketeMitFeuer.SetActive(true);
+            if(!feuerAktiviert)
+            {
+                // Rakete mit Feuer aktivieren + Feuersound abspielen
+                RaketeOhneFeuer.SetActive(false);
+                RaketeMitFeuer.SetActive(true);
+                AudioManager.Instance.SwitchLoop2();
+                AudioManager.Instance.Play2("raketenZuendung");
+                feuerAktiviert = true;
+                feuerPhase = true;
+            }
+            sekundenZaehler -= Time.deltaTime;
+            if (sekundenZaehler < 0)
+            {
+                sekundenZaehler = 1f;
+                zweiteZahl++;
+            }
+            if(zweiteZahl == 2)
+            {
+                if(!zuendungAktiviert)
+                {
+                    AudioManager.Instance.Play1("OKAYDieRaketezuendet");
+                    zuendungAktiviert = true;
+                }               
+            }
+            if(feuerPhase)
+            {
+                if(zweiteZahl == 5)
+                {
+                    if (!sorgeAktiviert)
+                    {
+                        AudioManager.Instance.Play1("aberEtwasFehltNoch");
+                        feuerPhase = false;
+                        fehltPhase = true;
+                        sorgeAktiviert = true;
+                    }    
+                }
+            }
+            if(fehltPhase)
+            {
+                if(!AudioManager.Instance.Source1StillPlaying())
+                {
+                    if(!ausmachenAktiviert)
+                    {
+                        AudioManager.Instance.SwitchLoop2();
+                        AudioManager.Instance.Stop2();
+                        ausmachenAktiviert = true;
+                        SceneManager.LoadScene("SteinSchereScene");
+                    }
+
+                }
+            }
         }
     }
 }

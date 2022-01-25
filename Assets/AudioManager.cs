@@ -63,6 +63,14 @@ public class AudioManager : MonoBehaviour
             mySource2.Stop();
         }
     }
+    public void SwitchLoop1()
+    {
+        mySource1.loop = !mySource1.loop;
+    }
+    public void SwitchLoop2()
+    {
+        mySource2.loop = !mySource2.loop;
+    }
 
     public void Play1(string name)
     {

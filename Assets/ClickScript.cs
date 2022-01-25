@@ -21,7 +21,7 @@ public class ClickScript : MonoBehaviour
     {
         if(gameObject.tag == "SearchedItem")
         {
-            Debug.Log("Yeah");
+            Debug.Log("Objekt getroffen");
             csm.NextClickObject();
             // richtiges Item angeklickt
             //ClickSceneManager.Instance.NextClickObject();
@@ -29,7 +29,8 @@ public class ClickScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Möp");
+            AudioManager.Instance.Play2("ouiii"); 
+            Debug.Log("Objekt nicht getroffen");
         }
     }
 }

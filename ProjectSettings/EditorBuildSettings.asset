@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ZSStart.unity
     guid: 2f9b09b8cd0d0424aa372480aa61c228
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: 850c43016a97d0941b78aa6dbf87d1cb
   m_configObjects: {}

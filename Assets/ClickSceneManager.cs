@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ClickSceneManager : MonoBehaviour
 {
@@ -21,20 +22,31 @@ public class ClickSceneManager : MonoBehaviour
     GameObject anzeigeFenster;
     zahlenZaehler zaehlerScript;
 
+    bool anfangsPhase = true;
+    float anfangsTimer = 2f;
+
+    public bool spielVerloren = false;
+    bool verlorenSetzen = false;
+    bool beendet = false;
+    float verlorenTimer = 5f;
+
     public void NextClickObject()
     {
         aktuelleSzeneIndex++;
         switch (aktuelleSzeneIndex)
         {
             case 2:
+                AudioManager.Instance.Play1("BINGNaechsteRunde");
                 SzeneAktivSetzen(szene2);
                 zaehlerScript.Reset();
                 break;
             case 3:
+                AudioManager.Instance.Play1("BINGRichtig");
                 SzeneAktivSetzen(szene3);
                 zaehlerScript.Reset();
                 break;
             default:
+                AudioManager.Instance.Play1("wowAllesFertig");
                 zaehlerScript.Geschafft();
                 Debug.Log("Geschafft");
                 break;
@@ -82,6 +94,7 @@ public class ClickSceneManager : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.levelFortschritt = 3;
 
         //Methode, um die richtigen Objekte für die nächste Versteckszene zu laden
         //Methode um neues Objekt random zu setzen
@@ -95,10 +108,42 @@ public class ClickSceneManager : MonoBehaviour
         szene3.SetActive(false);
         aktuelleSzene = szene1;
         SzeneAktivSetzen(szene1);
+
+        AudioManager.Instance.Play1("dieRichtigenTeileObenImKasten");
     }
 
     void Update()
     {
-        
+        if(spielVerloren)
+        {
+            if(!verlorenSetzen)
+            {
+                for (int i = 0; i < moeglicheZiele.Count; i++)
+                    moeglicheZiele[i].GetComponent<BoxCollider2D>().enabled = false;
+                verlorenSetzen = true;
+            }
+            verlorenTimer -= Time.deltaTime;
+            if(verlorenTimer < 0)
+            {
+                if(!beendet)
+                {
+                    SceneManager.LoadScene("IntroScene");
+                    beendet = true;
+                }
+            }
+        }
+        if(anfangsPhase)
+        {
+            if(!AudioManager.Instance.Source1StillPlaying())
+            {
+                anfangsTimer -= Time.deltaTime;
+                if(anfangsTimer < 0)
+                {
+                    AudioManager.Instance.Play2("schnellBeeilDich");
+                    anfangsPhase = false;
+                }
+            }
+        }
+
     }
 }

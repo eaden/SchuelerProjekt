@@ -58,7 +58,8 @@ public class zahlenZaehler : MonoBehaviour
             }
             else
             {
-                // bei 0 muss was passieren
+                AudioManager.Instance.Play2("schade");
+                csm.spielVerloren = true;
             }
         }
     }

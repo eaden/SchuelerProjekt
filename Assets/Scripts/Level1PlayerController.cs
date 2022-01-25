@@ -225,7 +225,7 @@ public class Level1PlayerController : MonoBehaviour
         {
             if(!landeSound)
             {
-                AudioManager.Instance.Play1("oui");
+                AudioManager.Instance.Play1("superWirSindGelandet");
                 landeSound = true;
             }
             var landingPoint = landing ?? new DirectedPosition(Vector2.zero, Vector2.zero);

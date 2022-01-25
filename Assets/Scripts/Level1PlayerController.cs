@@ -17,6 +17,9 @@ public class Level1PlayerController : MonoBehaviour
     float explosionTimer = 0.3f;
     float explosionTimerLimit = 0.3f;
 
+    bool landeSound = false;
+    float landeTimer = 5f;
+
     List<SpriteRenderer> schiffRenderer = new List<SpriteRenderer>();
     List<SpriteRenderer> explosionsRenderer = new List<SpriteRenderer>();
 
@@ -212,8 +215,19 @@ public class Level1PlayerController : MonoBehaviour
             }
             return;
         }
+        if(landeSound)
+        {
+            landeTimer -= Time.deltaTime;
+            if(landeTimer < 0)
+                SceneManager.LoadScene("AnklickenSpiel");
+        }
         if (landing != null)
         {
+            if(!landeSound)
+            {
+                AudioManager.Instance.Play1("oui");
+                landeSound = true;
+            }
             var landingPoint = landing ?? new DirectedPosition(Vector2.zero, Vector2.zero);
             rigid.velocity = Vector2.zero;
             transform.position = landingPoint.Point;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class zahlenZaehlerSteinSchere : MonoBehaviour
 {
@@ -8,31 +9,39 @@ public class zahlenZaehlerSteinSchere : MonoBehaviour
     private SpriteRenderer einerZaehlerRenderer;
     private int aktuelleZahl = 0;
     private float sekundenZaehler = 1f;
-    //GameObject RaketeOhneFeuer = null;
-    //GameObject RaketeMitFeuer = null;
     void Start()
     {
         einerZaehlerRenderer = GetComponent<SpriteRenderer>();
         einerZaehlerRenderer.sprite = spriteSammlung[aktuelleZahl];
-        //RaketeOhneFeuer = GameObject.Find("RaketeOhneFeuer");
-        //RaketeMitFeuer = GameObject.Find("RaketeMitFeuer");
     }
 
     public void PunktGemacht()
     {
         aktuelleZahl++;
-        einerZaehlerRenderer.sprite = spriteSammlung[aktuelleZahl];
-        if (aktuelleZahl > 5 && gameObject.CompareTag("Player"))
+        einerZaehlerRenderer.sprite = spriteSammlung[aktuelleZahl]; 
+        if(gameObject.CompareTag("Player"))
         {
-            if(gameObject.CompareTag("Player"))
+            if(aktuelleZahl > 5)
             {
-                // Gewonnen
+                AudioManager.Instance.Play1("yeahGeschafft");
             }
             else
             {
-                // Verloren
+                AudioManager.Instance.Play2("JA");
             }
-
+        }
+        else
+        {
+            if (aktuelleZahl > 5)
+            {
+                // Verloren
+                AudioManager.Instance.Play1("explosionEtwasLaengerUndLeise");
+                SteinSchereManager.Instance.spielVerloren = true;
+            }
+            else
+            {
+                AudioManager.Instance.Play2("schade");
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SteinSchereManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class SteinSchereManager : MonoBehaviour
     zahlenZaehlerSteinSchere zaehlerSpieler; 
     zahlenZaehlerSteinSchere zaehlerComputer;
 
+    bool anfangsPhase = false;
     bool shuffle = false;
     bool shuffleAbgeschlossen = false;
     int shuffleCounter = 0;
@@ -46,8 +48,13 @@ public class SteinSchereManager : MonoBehaviour
     
 
     bool clickablesAktiv = false;
-    float warteTimer = 5f;
+    float warteTimer = 6f;
     bool auswahlPhase;
+    public bool spielVerloren = false;
+    float verlorenTimer = 5f;
+
+    // music
+    bool gluecksspiel = false;
 
     void SetzeClickableAktiv()
     {
@@ -188,6 +195,7 @@ public class SteinSchereManager : MonoBehaviour
         if(gewaehltesObjektPlayer == computerAuswahl)
         {
             Debug.Log("Draw");
+            AudioManager.Instance.Play2("nochmal");
             return 0;
         }
         else if(computerAuswahl== ((gewaehltesObjektPlayer + 1)%3))
@@ -204,6 +212,8 @@ public class SteinSchereManager : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.levelFortschritt = 1;
+
         derComputer = GameObject.Find("DerComputer");
         computerAlien = GameObject.Find("ComputerAlien");
         computerSonne = GameObject.Find("ComputerSonne"); ;
@@ -229,6 +239,7 @@ public class SteinSchereManager : MonoBehaviour
         computerSpriteMask = GameObject.Find("ComputerSpriteMask");
         computerAugen = GameObject.Find("ComputerAugen");
         computerAugen.SetActive(false);
+        anfangsPhase = true;
         auswahlPhase = true;
         AudioManager.Instance.Play1("computerProgrammieren");
         // Computerauswahl
@@ -239,10 +250,29 @@ public class SteinSchereManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(spielVerloren)
+        {
+            verlorenTimer -= Time.deltaTime;
+            if(verlorenTimer < 0)
+                SceneManager.LoadScene("IntroScene");
+        }
         // Wartezeit am Anfang während Ansprache
         if(warteTimer > 0)
         {
             warteTimer -= Time.deltaTime;
+            if(warteTimer < 3)
+            {
+                if (gluecksspiel && !AudioManager.Instance.Source1StillPlaying())
+                {
+                    warteTimer = -1f;
+                }
+
+                if (!gluecksspiel)
+                {
+                    AudioManager.Instance.Play1("richtigesGluecksspiel");
+                    gluecksspiel = true;
+                }
+            }
         }
         else
         {

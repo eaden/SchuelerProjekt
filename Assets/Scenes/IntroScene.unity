@@ -1341,7 +1341,7 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: fff
     clip: {fileID: 8300000, guid: 296276c534414ca42b3107ae54044cf5, type: 3}
-    volume: 0.5
+    volume: 0.238
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: frr
@@ -1376,12 +1376,12 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: hilfeEinRiesigesAlien
     clip: {fileID: 8300000, guid: 852ca30445739cf4db901381094a4176, type: 3}
-    volume: 0.5
+    volume: 0.174
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: JA
     clip: {fileID: 8300000, guid: 53bb067c6387df6488e652c51acecdb1, type: 3}
-    volume: 0.5
+    volume: 0.26
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: lassUnsZumMarsReisen
@@ -2312,6 +2312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e34a2af84792904bb6b889ed8bdd8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weitermachen: 0
 --- !u!4 &2062796203
 Transform:
   m_ObjectHideFlags: 0

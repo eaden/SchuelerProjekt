@@ -8,7 +8,7 @@ public class Level1PlayerController : MonoBehaviour
     [SerializeField]
     private bool isBurning = false;
 	[SerializeField]
-	private int deathCamTime = 6;
+	private int deathCamTime = 8;
     private int damage = 0;
     private bool invulnerable = false;
     float invulnerableTimer = 2.5f;
@@ -24,21 +24,20 @@ public class Level1PlayerController : MonoBehaviour
     public void PlayerHitSomething()
     {
 
-        Debug.Log("Schaden erhalten");
+        //Debug.Log("Schaden erhalten");
         if(damage < 1)
         {
+            AudioManager.Instance.Play2("explosionKurz");
             explosionsRenderer[0].enabled = true;
             StartCoroutine(FadeTo(0.0f, 1.0f, explosionsRenderer[0]));
             explosionCounter++;
         }
-            
+        else
+            AudioManager.Instance.Play2("explosionDoppel");
+
         IsBurning = true;
         damage++;
         invulnerable = true;
-        if(damage > 1)
-        {
-            // Destruction
-        }
     }
     
     public bool IsBurning
@@ -87,6 +86,8 @@ public class Level1PlayerController : MonoBehaviour
 
     void Start() 
     {
+        GameManager.Instance.levelFortschritt = 2;
+
 		cameraMovement = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Level1CameraMovement>();
         rigid = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();

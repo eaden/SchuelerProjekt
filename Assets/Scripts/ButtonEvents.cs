@@ -19,7 +19,7 @@ public class ButtonEvents : MonoBehaviour
 
     public void Weitermachen_Changelevel()
     {
-        if(GameManager.Instance!=null)
+        if(GameManager.Instance!=null && !AudioManager.Instance.Source1StillPlaying())
         {
             AudioManager.Instance.Play1("vielSpassBeiDerNaechstenRunde");
             IntroManager.Instance.weitermachen = true;
@@ -28,14 +28,19 @@ public class ButtonEvents : MonoBehaviour
     }
     public void Teilnehmende_Changelevel()
     {
-        SceneManager.LoadScene("Teilnehmende");
+        if(!IntroManager.Instance.weitermachen)
+            SceneManager.LoadScene("Teilnehmende");
     }
     
     public void ChangeSceneToFirstLevel()
     {
-        GameManager.Instance.levelFortschritt = 0;
-        AudioManager.Instance.Play1("lassUnsZumMarsReisen");
-        SceneManager.LoadScene("ZSStart");
+        if (!IntroManager.Instance.weitermachen)
+        {
+            GameManager.Instance.levelFortschritt = 0;
+            AudioManager.Instance.Play1("lassUnsZumMarsReisen");
+            SceneManager.LoadScene("ZSStart");
+        }
+            
     }
 
     public void CloseGame()

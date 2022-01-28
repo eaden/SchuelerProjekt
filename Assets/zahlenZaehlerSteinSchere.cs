@@ -7,7 +7,7 @@ public class zahlenZaehlerSteinSchere : MonoBehaviour
 {
     public Sprite[] spriteSammlung = new Sprite[10];
     private SpriteRenderer einerZaehlerRenderer;
-    private int aktuelleZahl = 0;
+    private int aktuelleZahl = 3;
     private float sekundenZaehler = 1f;
     void Start()
     {
@@ -23,8 +23,9 @@ public class zahlenZaehlerSteinSchere : MonoBehaviour
         {
             if(aktuelleZahl > 3)
             {
+                // Gewonnen
+                SteinSchereManager.Instance.spielGewonnen = true;
                 AudioManager.Instance.Play1("yeahGeschafft");
-                SceneManager.LoadScene("ZSAbflug");
             }
             else
             {

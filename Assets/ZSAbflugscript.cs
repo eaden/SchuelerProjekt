@@ -20,13 +20,17 @@ public class ZSAbflugscript : MonoBehaviour
         gameObject.transform.Translate(Vector3.right * Time.deltaTime * 10);
         if(transform.position.x > 10f)
         {
+            if(changeSzene && FadeInOut.Instance.ganzSchwarz)
+            {
+                AudioManager.Instance.Play1("achtungImmerAusweichen");
+                SceneManager.LoadScene("Level1");
+            }
             if(!changeSzene)
             {
                 AudioManager.Instance.Stop2();
                 AudioManager.Instance.SetLoop2(false);
+                FadeInOut.Instance.FadeBlackIn(2f);
                 changeSzene = true;
-                AudioManager.Instance.Play1("achtungImmerAusweichen");
-                SceneManager.LoadScene("Level1");
             }
         }
     }

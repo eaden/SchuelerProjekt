@@ -53,6 +53,12 @@ public class SteinSchereManager : MonoBehaviour
     public bool spielVerloren = false;
     float verlorenTimer = 5f;
 
+    public bool spielGewonnen = false;
+
+    bool fadeStart1 = false;
+    bool fadeStart2 = false;
+    bool szenenWechsel = false;
+
     // music
     bool gluecksspiel = false;
 
@@ -250,9 +256,30 @@ public class SteinSchereManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(spielGewonnen)
+        {
+            if(!fadeStart2)
+            {
+                FadeInOut.Instance.FadeBlackIn(2f);
+                fadeStart2 = true;
+            }
+            if(FadeInOut.Instance.ganzSchwarz && !szenenWechsel)
+            {
+                SceneManager.LoadScene("ZSAbflug");
+                szenenWechsel = true;
+            }
+        }
         if(spielVerloren)
         {
             verlorenTimer -= Time.deltaTime;
+            if(verlorenTimer < 2.5f)
+            {
+                if(!fadeStart1)
+                {
+                    FadeInOut.Instance.FadeBlackIn(2f);
+                    fadeStart1 = true;
+                }
+            }
             if(verlorenTimer < 0)
                 SceneManager.LoadScene("IntroScene");
         }

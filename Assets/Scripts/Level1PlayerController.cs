@@ -19,6 +19,8 @@ public class Level1PlayerController : MonoBehaviour
 
     bool landeSound = false;
     float landeTimer = 5f;
+    bool fadeStart1 = false;
+    bool fadeStart2 = false;
 
     List<SpriteRenderer> schiffRenderer = new List<SpriteRenderer>();
     List<SpriteRenderer> explosionsRenderer = new List<SpriteRenderer>();
@@ -209,6 +211,14 @@ public class Level1PlayerController : MonoBehaviour
                         schiffRenderer[1].enabled = true;
                     }
                 }
+                else
+                {
+                    if(!fadeStart1)
+                    {
+                        FadeInOut.Instance.FadeBlackIn(1.8f);
+                        fadeStart1 = true;
+                    }
+                }
             }
             explosionsRenderer[1].enabled = true;
             StartCoroutine(FadeTo(0.0f, 0.6f, explosionsRenderer[1]));
@@ -224,6 +234,14 @@ public class Level1PlayerController : MonoBehaviour
         if(landeSound)
         {
             landeTimer -= Time.deltaTime;
+            if(landeTimer < 2)
+            {
+                if(!fadeStart2)
+                {
+                    FadeInOut.Instance.FadeBlackIn(1.8f);
+                    fadeStart2 = true;
+                }
+            }
             if(landeTimer < 0)
                 SceneManager.LoadScene("AnklickenSpiel");
         }

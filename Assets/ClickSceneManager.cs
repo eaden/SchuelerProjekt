@@ -33,6 +33,9 @@ public class ClickSceneManager : MonoBehaviour
     bool beendet = false;
     float verlorenTimer = 5f;
 
+    bool fadeStart = false;
+    bool fadeStart2 = false;
+
     public void NextClickObject()
     {
         aktuelleSzeneIndex++;
@@ -126,7 +129,12 @@ public class ClickSceneManager : MonoBehaviour
     {
         if(spielGewonnen)
         {
-            if(!AudioManager.Instance.Source1StillPlaying())
+            if(!fadeStart)
+            {
+                FadeInOut.Instance.FadeBlackIn(2f);
+                fadeStart = true;
+            }
+            if(!AudioManager.Instance.Source1StillPlaying() && FadeInOut.Instance.ganzSchwarz)
             {
                 if(!gewonnenUebergang)
                 {
@@ -146,6 +154,14 @@ public class ClickSceneManager : MonoBehaviour
                 verlorenSetzen = true;
             }
             verlorenTimer -= Time.deltaTime;
+            if(verlorenTimer < 2.5f)
+            {
+                if(!fadeStart2)
+                {
+                    FadeInOut.Instance.FadeBlackIn(2f);
+                    fadeStart2 = true;
+                }
+            }
             if(verlorenTimer < 0)
             {
                 if(!beendet)

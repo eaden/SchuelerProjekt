@@ -28,17 +28,17 @@ public class ButtonEvents : MonoBehaviour
     }
     public void Teilnehmende_Changelevel()
     {
-        if(!IntroManager.Instance.weitermachen)
-            SceneManager.LoadScene("Teilnehmende");
+        if (!IntroManager.Instance.weitermachen)
+            IntroManager.Instance.teilnehmendeSzene = true;
     }
     
     public void ChangeSceneToFirstLevel()
     {
         if (!IntroManager.Instance.weitermachen)
         {
+            IntroManager.Instance.ersteSzene = true;
             GameManager.Instance.levelFortschritt = 0;
             AudioManager.Instance.Play1("lassUnsZumMarsReisen");
-            SceneManager.LoadScene("ZSStart");
         }
             
     }

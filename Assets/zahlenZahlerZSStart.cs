@@ -127,12 +127,17 @@ public class zahlenZahlerZSStart : MonoBehaviour
                 ausmachenTimer -= Time.deltaTime;
                 if(ausmachenTimer < 0)
                 {
-                    if(!szenenWechsel)
+                    if (szenenWechsel && FadeInOut.Instance.ganzSchwarz)
                     {
                         AudioManager.Instance.SetLoop2(false);
                         AudioManager.Instance.SetLoop3(true);
                         AudioManager.Instance.Stop2();
                         SceneManager.LoadScene("SteinSchereScene");
+                        szenenWechsel = true;
+                    }
+                    if (!szenenWechsel)
+                    {
+                        FadeInOut.Instance.FadeBlackIn(2f);
                         szenenWechsel = true;
                     }
                 }

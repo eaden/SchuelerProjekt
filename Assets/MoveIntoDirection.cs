@@ -53,7 +53,7 @@ public class MoveIntoDirection : MonoBehaviour
                     rueckzug = false;
                     firstOne.transform.position = startposition;
                     started = false;
-                    ssm.moveAnimationFertig = true;
+                    ssm.moveAnimationFertig = true;  
                 }
             }
             /*
@@ -89,6 +89,7 @@ public class MoveIntoDirection : MonoBehaviour
                     ansturm = false;
                     //kurzzurueck = true;
                     rueckzug = true;
+                    AudioManager.Instance.Play2("explosionKurz");
                 }
 
             }

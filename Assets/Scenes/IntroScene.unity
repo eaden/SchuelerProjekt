@@ -1428,7 +1428,7 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: explosionKurz
     clip: {fileID: 8300000, guid: 19ae63e0457cb7f4f98538f22cee5786, type: 3}
-    volume: 0.5
+    volume: 0.319
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: fff
@@ -1558,7 +1558,7 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: ssp_ohoh
     clip: {fileID: 8300000, guid: 2d6c2065bc90f934f9412e7fd4c7e686, type: 3}
-    volume: 0.5
+    volume: 0.374
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: ssp_planet

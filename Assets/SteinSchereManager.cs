@@ -58,6 +58,9 @@ public class SteinSchereManager : MonoBehaviour
     bool fadeStart1 = false;
     bool fadeStart2 = false;
     bool szenenWechsel = false;
+    bool computerAugenSound = false;
+    float computerAugenSoundTimer = 1f;
+    float computerAugenSoundTimerLimit = 1f;
 
     // music
     bool gluecksspiel = false;
@@ -152,6 +155,7 @@ public class SteinSchereManager : MonoBehaviour
             computerSpriteMask.transform.GetChild(i).gameObject.SetActive(false);
         }
         computerAugen.SetActive(false);
+        computerAugenSound = false;
     }
 
     void ComputerAuswahlAus()
@@ -367,6 +371,17 @@ public class SteinSchereManager : MonoBehaviour
                 auswahlPhase = true;
                 ComputerWaehlt();
 
+            }
+            if(computerAugen.activeInHierarchy && !computerAugenSound && AudioManager.Instance.Source2StillPlaying())
+            {
+                computerAugenSoundTimer -= Time.deltaTime;
+                if(computerAugenSoundTimer < 0)
+                {
+                    AudioManager.Instance.Play1("ssp_ohoh");
+                    computerAugenSoundTimer = computerAugenSoundTimerLimit;
+                    computerAugenSound = true;
+                }
+                
             }
         }
 

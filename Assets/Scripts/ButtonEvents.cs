@@ -34,7 +34,7 @@ public class ButtonEvents : MonoBehaviour
     
     public void ChangeSceneToFirstLevel()
     {
-        if (!IntroManager.Instance.weitermachen)
+        if (!IntroManager.Instance.weitermachen && !AudioManager.Instance.Source1StillPlaying() && FadeInOut.Instance.ganzDurchsichtig)
         {
             IntroManager.Instance.ersteSzene = true;
             GameManager.Instance.levelFortschritt = 0;

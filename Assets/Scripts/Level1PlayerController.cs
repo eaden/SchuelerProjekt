@@ -32,10 +32,7 @@ public class Level1PlayerController : MonoBehaviour
         //Debug.Log("Schaden erhalten");
         if(damage < 1)
         {
-            if(Random.Range(0,2) < 1)
-                AudioManager.Instance.Play2("explosionKurz");
-            else
-                AudioManager.Instance.Play2("frr");
+            AudioManager.Instance.Play2("explosionKurz");
             explosionsRenderer[0].enabled = true;
             StartCoroutine(FadeTo(0.0f, 1.0f, explosionsRenderer[0]));
             explosionCounter++;

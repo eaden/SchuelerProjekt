@@ -167,13 +167,14 @@ public class SteinSchereManager : MonoBehaviour
             computerSneakpeak = true;
             // Change den richtigen anzuzeigen
             int showRightOne = Random.Range(1, 11);
-            if(showRightOne > 2)
+            if(showRightOne > 4)
             {
                 computerSpriteMask.transform.GetChild(computerAuswahl).gameObject.SetActive(true);
             }
             else
             {
-                computerSpriteMask.transform.GetChild((computerAuswahl+ showRightOne) % 3).gameObject.SetActive(true);
+                // darauf achten, dass wenn die Augen roten sind, auch immer das falsche angezeigt wird
+                computerSpriteMask.transform.GetChild((computerAuswahl+ Random.Range(1,3)) % 3).gameObject.SetActive(true);
                 computerAugen.SetActive(true);
             }
                 

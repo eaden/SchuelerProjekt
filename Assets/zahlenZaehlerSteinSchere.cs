@@ -7,7 +7,7 @@ public class zahlenZaehlerSteinSchere : MonoBehaviour
 {
     public Sprite[] spriteSammlung = new Sprite[10];
     private SpriteRenderer einerZaehlerRenderer;
-    private int aktuelleZahl = 3;
+    private int aktuelleZahl = 0;
     private float sekundenZaehler = 1f;
     void Start()
     {

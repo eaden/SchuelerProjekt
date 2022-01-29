@@ -1388,7 +1388,7 @@ MonoBehaviour:
     source2: {fileID: 0}
   - name: Beatbox
     clip: {fileID: 8300000, guid: 1fa5bbe66dfbc1746bdcdd1b6889b485, type: 3}
-    volume: 0.334
+    volume: 0.157
     source: {fileID: 0}
     source2: {fileID: 0}
   - name: BINGNaechsteRunde
@@ -1549,6 +1549,26 @@ MonoBehaviour:
   - name: gesangVerzerrt
     clip: {fileID: 8300000, guid: f0adfba75e81e7242a6526e3e2651b31, type: 3}
     volume: 0.566
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: ssp_alien
+    clip: {fileID: 8300000, guid: 4d691b2afb664db4ab2685f821f7d06b, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: ssp_ohoh
+    clip: {fileID: 8300000, guid: 2d6c2065bc90f934f9412e7fd4c7e686, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: ssp_planet
+    clip: {fileID: 8300000, guid: 54d2f28f8d7dfa447880dc9130d6d063, type: 3}
+    volume: 0.5
+    source: {fileID: 0}
+    source2: {fileID: 0}
+  - name: ssp_sonne
+    clip: {fileID: 8300000, guid: 3305d2c185a264941af48021fee81ded, type: 3}
+    volume: 0.5
     source: {fileID: 0}
     source2: {fileID: 0}
   mySource1: {fileID: 0}

@@ -97,14 +97,17 @@ public class SteinSchereManager : MonoBehaviour
             case "ClickAlien":
                 playerAuswahlObjekt = clickAlien.gameObject;
                 gewaehltesObjektPlayer = 0;
+                AudioManager.Instance.Play2("ssp_alien");
                 break;
             case "ClickSonne":
                 playerAuswahlObjekt = clickSonne.gameObject;
                 gewaehltesObjektPlayer = 1;
+                AudioManager.Instance.Play2("ssp_sonne");
                 break;
             case "ClickPlanet":
                 playerAuswahlObjekt = clickPlanet.gameObject;
                 gewaehltesObjektPlayer = 2;
+                AudioManager.Instance.Play2("ssp_planet");
                 break;
             default:
                 Debug.Log("Something wrong");

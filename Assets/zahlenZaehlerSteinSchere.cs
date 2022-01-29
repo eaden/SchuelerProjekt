@@ -24,8 +24,8 @@ public class zahlenZaehlerSteinSchere : MonoBehaviour
             if(aktuelleZahl > 3)
             {
                 // Gewonnen
-                SteinSchereManager.Instance.spielGewonnen = true;
                 AudioManager.Instance.Play1("yeahGeschafft");
+                SteinSchereManager.Instance.spielGewonnen = true;
             }
             else
             {

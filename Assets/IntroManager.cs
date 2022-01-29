@@ -49,7 +49,8 @@ public class IntroManager : MonoBehaviour
             }
             if (!AudioManager.Instance.Source1StillPlaying() && FadeInOut.Instance.ganzSchwarz)
             {
-                SceneManager.LoadScene("ZSStart");
+                //SceneManager.LoadScene("ZSStart");
+                SceneManager.LoadScene("Level1");
             }
         }
         if(teilnehmendeSzene)

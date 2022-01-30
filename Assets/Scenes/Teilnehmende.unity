@@ -383,6 +383,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FadeOutInHelferUI
       objectReference: {fileID: 0}
+    - target: {fileID: 685840660402790348, guid: 428445c29f6d96245aacf5ee53eb1d76,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 685840660402790349, guid: 428445c29f6d96245aacf5ee53eb1d76,
         type: 3}
       propertyPath: m_Pivot.x
@@ -530,7 +535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: 91}
+  m_AnchoredPosition: {x: -5, y: 4.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533775989
@@ -747,10 +752,10 @@ RectTransform:
   m_Father: {fileID: 1802267680}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -85, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -85, y: -81.6}
+  m_SizeDelta: {x: -248, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1883087395
 MonoBehaviour:

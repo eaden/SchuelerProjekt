@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8475485872683265445}
   - component: {fileID: 8475485872683265444}
   - component: {fileID: 8475485872683265443}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GegnerraketeZwei
   m_TagString: Respawn
   m_Icon: {fileID: 0}

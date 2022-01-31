@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641222, b: 0.57481664, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4701,7 +4701,7 @@ GameObject:
   - component: {fileID: 2040762496}
   - component: {fileID: 2040762495}
   - component: {fileID: 2040762494}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AlienKlein
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4800,7 +4800,7 @@ GameObject:
   - component: {fileID: 2061593083}
   - component: {fileID: 2061593084}
   - component: {fileID: 2061593085}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AlienGross
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8659651674066908929}
   - component: {fileID: 8659651674066908928}
   - component: {fileID: 8659651674066908935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gegnerrakete
   m_TagString: Untagged
   m_Icon: {fileID: 0}

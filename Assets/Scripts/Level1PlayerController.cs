@@ -9,6 +9,8 @@ public class Level1PlayerController : MonoBehaviour
     private bool isBurning = false;
 	[SerializeField]
 	private int deathCamTime = 8;
+	[SerializeField]
+	private float touchMargin = 0.01f; // Bereich um Klick / touch welcher ignoriert wird um wackeln der Rackete zu vermeiden
     private int damage = 0;
     private bool invulnerable = false;
     float invulnerableTimer = 2.5f;
@@ -165,23 +167,59 @@ public class Level1PlayerController : MonoBehaviour
                 invulnerableTimer = invulnerableTimerLimit;
             }
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            goingLeft = true;
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
-            goingLeft = false;
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            goingRight = true;
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-            goingRight = false;
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-            goingDown = true;
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-            goingDown = false;
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            goingUp = true;
-        if (Input.GetKeyUp(KeyCode.UpArrow))
-            goingUp = false;
-    }
+		/// should also works for touch input :)
+		/// https://stackoverflow.com/questions/22459112/in-unity3d-click-touch
+		if (Input.GetMouseButton(0))
+		{
+			Vector3 fingerPos = Input.mousePosition;
+			fingerPos.x /= Screen.width;
+			fingerPos.y /= Screen.height;
+            Vector3 rocketPos = Camera.main.WorldToViewportPoint(transform.position);
+
+			goingLeft = false;
+			goingRight = false;
+			goingDown = false;
+			goingUp = false;
+
+			if (fingerPos.x - rocketPos.x > touchMargin) {
+				goingRight = true;
+			} else if(fingerPos.x - rocketPos.x < -touchMargin){
+				goingLeft = true;
+			}
+
+			if (fingerPos.y - rocketPos.y > touchMargin) {
+				goingUp = true;
+			} else if (fingerPos.y - rocketPos.y < -touchMargin){
+				goingDown = true;
+			}
+		}
+		else if(Input.GetMouseButtonUp(0))
+		{
+			goingRight = false;
+			goingLeft = false;
+			goingUp = false;
+			goingDown = false;
+		}
+		else
+		{
+			if (Input.GetKeyDown(KeyCode.LeftArrow))
+				goingLeft = true;
+			if (Input.GetKeyUp(KeyCode.LeftArrow))
+				goingLeft = false;
+			if (Input.GetKeyDown(KeyCode.RightArrow))
+				goingRight = true;
+			if (Input.GetKeyUp(KeyCode.RightArrow))
+				goingRight = false;
+			if (Input.GetKeyDown(KeyCode.DownArrow))
+				goingDown = true;
+			if (Input.GetKeyUp(KeyCode.DownArrow))
+				goingDown = false;
+			if (Input.GetKeyDown(KeyCode.UpArrow))
+				goingUp = true;
+			if (Input.GetKeyUp(KeyCode.UpArrow))
+				goingUp = false;
+		}
+	}
 
 
     private void FixedUpdate()

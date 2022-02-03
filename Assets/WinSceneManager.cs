@@ -23,7 +23,7 @@ public class WinSceneManager : MonoBehaviour
         {
             if(!szenenWechsel)
             {
-                SceneManager.LoadScene("IntroScene");
+                SceneManager.LoadScene("Teilnehmende");
                 szenenWechsel = true;
             }
         }
@@ -38,7 +38,7 @@ public class WinSceneManager : MonoBehaviour
             AudioManager.Instance.Play1("tschueeess");
             zweiterTeil = true;
         }
-        if (zaehler > 12 && !fadeStart1)
+        if (zaehler > 11 && !fadeStart1)
         {
             FadeInOut.Instance.FadeBlackIn(2f);
             fadeStart1 = true;

@@ -29,8 +29,11 @@ public class ClickScript : MonoBehaviour
         }
         else
         {
-            AudioManager.Instance.Play2("ouiii"); 
-            Debug.Log("Objekt nicht getroffen");
+            if(!csm.spielGewonnen)
+            {
+                AudioManager.Instance.Play1("oui");
+                Debug.Log("Objekt nicht getroffen");
+            }
         }
     }
 }

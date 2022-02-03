@@ -24,7 +24,7 @@ public class MoveUI : MonoBehaviour
         {
             position.y += Time.deltaTime * slowScrollSpeed;
         }
-        else if (Input.GetKey("down"))
+        else if (Input.GetKey("down") || Input.GetMouseButton(0))
         {
             position.y += Time.deltaTime * fastScrollSpeed;
         }

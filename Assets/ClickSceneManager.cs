@@ -25,7 +25,7 @@ public class ClickSceneManager : MonoBehaviour
     bool anfangsPhase = true;
     float anfangsTimer = 2f;
 
-    bool spielGewonnen = false;
+    public bool spielGewonnen = false;
     bool gewonnenUebergang = false;
 
     public bool spielVerloren = false;
@@ -52,7 +52,7 @@ public class ClickSceneManager : MonoBehaviour
                 zaehlerScript.Reset();
                 break;
             case 4:
-                AudioManager.Instance.Play1("wowAllesFertig");
+                AudioManager.Instance.Play2("wowAllesFertig");
                 zaehlerScript.Geschafft();
                 spielGewonnen = true;
                 Debug.Log("Geschafft");
@@ -119,7 +119,7 @@ public class ClickSceneManager : MonoBehaviour
         aktuelleSzene = szene1;
         SzeneAktivSetzen(szene1);
 
-        AudioManager.Instance.Play1("dieRichtigenTeileObenImKasten");
+        AudioManager.Instance.Play2("dieRichtigenTeileObenImKasten");
         AudioManager.Instance.Stop3();
         AudioManager.Instance.SetLoop3(true);
         AudioManager.Instance.Play3("gesangEtwasLaenger");
@@ -173,7 +173,7 @@ public class ClickSceneManager : MonoBehaviour
         }
         if(anfangsPhase)
         {
-            if(!AudioManager.Instance.Source1StillPlaying())
+            if(!AudioManager.Instance.Source2StillPlaying())
             {
                 anfangsTimer -= Time.deltaTime;
                 if(anfangsTimer < 0)

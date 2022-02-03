@@ -7,6 +7,8 @@ public class MoveUI : MonoBehaviour
     private RectTransform rectTransform;
     bool endeErreicht = false;
     float scrollSpeed = 80;
+    float slowScrollSpeed = 10;
+    float fastScrollSpeed = 500;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,16 @@ public class MoveUI : MonoBehaviour
     {
         Vector2 position = rectTransform.anchoredPosition;
         //Debug.Log(gameObject.name + " " + position.y);
-        position.y += Time.deltaTime * scrollSpeed;
+        if (Input.GetKey("up"))
+        {
+            position.y += Time.deltaTime * slowScrollSpeed;
+        }
+        else if (Input.GetKey("down"))
+        {
+            position.y += Time.deltaTime * fastScrollSpeed;
+        }
+        else
+            position.y += Time.deltaTime * scrollSpeed;
         if(position.y > 0)
         {
             if(!endeErreicht)

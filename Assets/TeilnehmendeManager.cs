@@ -1,9 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TeilnehmendeManager : MonoBehaviour
 {
+    public static TeilnehmendeManager Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public bool szeneVerlassen = false;
+    bool szenenWechsel = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +23,13 @@ public class TeilnehmendeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(szeneVerlassen && FadeInOut.Instance.ganzSchwarz)
+        {
+            if(!szenenWechsel)
+            {
+                SceneManager.LoadScene("IntroScene");
+                szenenWechsel = true;
+            }
+        }
     }
 }
